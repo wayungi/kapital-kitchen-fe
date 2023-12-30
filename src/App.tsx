@@ -1,4 +1,4 @@
-import Restaurants from "./components/Restaurants"
+import RestaurantList from "./components/RestaurantList"
 import { RestaurantType } from "./custome"
 
 const restaurants: RestaurantType[] = [
@@ -20,7 +20,7 @@ const restaurants: RestaurantType[] = [
 function App() {
   return (
     <>
-      <Restaurants restaurants={restaurants}/>
+      <RestaurantList restaurants={restaurants}/>
     </>
   )
 }
