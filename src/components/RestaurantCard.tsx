@@ -1,8 +1,12 @@
-import { RestaurantType } from '../custome'
+import { RestaurantType } from '../custom'
 
 type RestaurantCardType = Pick<RestaurantType, "name" | "location" | "path">
 
 const RestaurantCard = ({ name, location, path }: RestaurantCardType) => {
+  console.log(path)
+  console.log(name)
+  console.log(location)
+
   return (
     <>
         <h1>{name}</h1>
