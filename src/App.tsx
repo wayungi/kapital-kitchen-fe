@@ -21,9 +21,9 @@ const restaurants: RestaurantType[] = [
 
 function App() {
   return (
-    <>
+    <main>
       <RestaurantList restaurants={restaurants} />
-    </>
+    </main>
   )
 }
 
