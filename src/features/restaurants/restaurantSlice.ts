@@ -39,9 +39,6 @@ const initialState: RestaurantState = {
   ]
 }
 
-
-//  activaterestaurant
-
 export const restaurantSlice = createSlice({
   name: 'restaurant',
   initialState,
@@ -49,28 +46,21 @@ export const restaurantSlice = createSlice({
     getAllRestaurants: state => {
       state.restaurants
     },
-
     addRestaurant: (state, action: PayloadAction<RestaurantType>) => {
       [...state.restaurants, action.payload]
     },
-
     updateRestaurant: (state, action:PayloadAction<RestaurantType>) => {
         console.log(state.restaurants, action.payload)
     },
-
     deleteRestaurant: (state, action:PayloadAction<RestaurantType>) => {
         console.log(state.restaurants, action.payload)
     },
-
     deactivateRestaurant: (state, action:PayloadAction<RestaurantType>) => {
         console.log(state.restaurants, action.payload)
     },
-
     activateRestaurant: (state, action:PayloadAction<RestaurantType>) => {
         console.log(state.restaurants, action.payload)
-
     }
-
   }
 })
 
@@ -83,7 +73,5 @@ export const {
     activateRestaurant
  } = restaurantSlice.actions
 
-// Other code such as selectors can use the imported `RootState` type
-export const selectRestaurants = (state: RootState) => state.restaurants
-
+export const selectAllRestaurants = (state: RootState) => state.restaurants
 export default restaurantSlice.reducer
