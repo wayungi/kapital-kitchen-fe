@@ -1,31 +1,28 @@
 import { RestaurantType } from "../custom"
 import RestaurantCard from "./RestaurantCard"
-import { useState, useEffect } from "react"
+import { useAppSelector } from "../app/hooks"
+import { selectAllRestaurants } from "../features/restaurants/restaurantSlice"
 
-type RestaurantsProps = {
-    restaurants: RestaurantType[]
-}
+const RestaurantList = () => {
+    const restaurantsList: RestaurantType[] = useAppSelector((state) => selectAllRestaurants(state))
+    // const [jacka, setRestaurants] =  useState<RestaurantType[]>([])
 
-const RestaurantList = ( { restaurants } : RestaurantsProps) => {
+    // useEffect(() => {
+    //     const fetchRestaurants = async(): Promise<RestaurantType[]> => {
+    //         const restaurants = await fetch('http://127.0.0.1:3000/restaurants')
+    //         .then(res => {
+    //             return res.json()})
+    //         .catch(err => { if (err instanceof Error) console.log(err)})
+    //         return restaurants
+    //     }
+    //     fetchRestaurants().then(restaurants => setRestaurants(restaurants))
+    // }, [])
 
-    const [jacka, setRestaurants] =  useState<RestaurantType[]>([])
-
-    useEffect(() => {
-        const fetchRestaurants = async(): Promise<RestaurantType[]> => {
-            const restaurants = await fetch('http://127.0.0.1:3000/restaurants')
-            .then(res => {
-                return res.json()})
-            .catch(err => { if (err instanceof Error) console.log(err)})
-            return restaurants
-        }
-        fetchRestaurants().then(restaurants => setRestaurants(restaurants))
-    }, [])
-
-    console.log(jacka)
+    // console.log(jacka)
 
     
 
-    const restaurantCards = restaurants.map((restaurant: RestaurantType) =>
+    const restaurantCards = restaurantsList.map((restaurant: RestaurantType) =>
     <article key={restaurant.id} className="mx-2 my-10 shadow-lg sm:flex">
       <RestaurantCard 
         name={restaurant.name}
