@@ -1,5 +1,6 @@
 import { RestaurantType } from "../custom"
 import RestaurantCard from "./RestaurantCard"
+import { useState, useEffect } from "react"
 
 type RestaurantsProps = {
     restaurants: RestaurantType[]
@@ -7,22 +8,25 @@ type RestaurantsProps = {
 
 const RestaurantList = ( { restaurants } : RestaurantsProps) => {
 
-    // const [restaurants, setRestaurants] =  useState<RestaurantType[]>([])
+    const [jacka, setRestaurants] =  useState<RestaurantType[]>([])
 
-    // useEffect(() => {
-    //     const fetchRestaurants = async(): Promise<RestaurantType[]> => {
-    //         const restaurants = await fetch('http://127.0.0.1:3000/restaurants')
-    //         .then(res => {
-    //             console.log(res.json())
-    //             return res.json()})
-    //         .catch(err => { if (err instanceof Error) console.log(err)})
-    //         return restaurants
-    //     }
-    //     fetchRestaurants().then(restaurants => setRestaurants(restaurants))
-    // })
+    useEffect(() => {
+        const fetchRestaurants = async(): Promise<RestaurantType[]> => {
+            const restaurants = await fetch('http://127.0.0.1:3000/restaurants')
+            .then(res => {
+                return res.json()})
+            .catch(err => { if (err instanceof Error) console.log(err)})
+            return restaurants
+        }
+        fetchRestaurants().then(restaurants => setRestaurants(restaurants))
+    }, [])
+
+    console.log(jacka)
+
+    
 
     const restaurantCards = restaurants.map((restaurant: RestaurantType) =>
-    <article key={restaurant.id} className="mx-2 my-10 shadow-lg">
+    <article key={restaurant.id} className="mx-2 my-10 shadow-lg sm:flex">
       <RestaurantCard 
         name={restaurant.name}
         location={restaurant.location}
@@ -32,7 +36,12 @@ const RestaurantList = ( { restaurants } : RestaurantsProps) => {
     )
 
   return (
-    <div>{restaurantCards}</div>
+    <div className="
+      max-w-4xl
+      mx-auto
+    ">
+      {restaurantCards}
+    </div>
   )
 }
 
