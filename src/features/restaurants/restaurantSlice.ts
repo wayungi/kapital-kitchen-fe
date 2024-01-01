@@ -73,5 +73,5 @@ export const {
     activateRestaurant
  } = restaurantSlice.actions
 
-export const selectAllRestaurants = (state: RootState) => state.restaurants
+export const selectAllRestaurants = (state: RootState) => state.restaurants.restaurants
 export default restaurantSlice.reducer

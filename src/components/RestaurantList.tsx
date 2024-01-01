@@ -3,14 +3,8 @@ import RestaurantCard from "./RestaurantCard"
 import { useAppSelector } from "../app/hooks"
 import { selectAllRestaurants } from "../features/restaurants/restaurantSlice"
 
-type RestaurantsProps = {
-    restaurants: RestaurantType[]
-}
-
-const RestaurantList = ( { restaurants } : RestaurantsProps) => {
-    const rest = useAppSelector((state) => selectAllRestaurants(state))
-    console.log(rest)
-    console.log('janga')
+const RestaurantList = () => {
+    const restaurantsList: RestaurantType[] = useAppSelector((state) => selectAllRestaurants(state))
     // const [jacka, setRestaurants] =  useState<RestaurantType[]>([])
 
     // useEffect(() => {
@@ -28,7 +22,7 @@ const RestaurantList = ( { restaurants } : RestaurantsProps) => {
 
     
 
-    const restaurantCards = restaurants.map((restaurant: RestaurantType) =>
+    const restaurantCards = restaurantsList.map((restaurant: RestaurantType) =>
     <article key={restaurant.id} className="mx-2 my-10 shadow-lg sm:flex">
       <RestaurantCard 
         name={restaurant.name}
