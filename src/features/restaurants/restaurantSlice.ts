@@ -13,28 +13,32 @@ const initialState: RestaurantState = {
         name: "Nandos",
         location: "Kampala Road",
         status: "up",
-        path: "https://picsum.photos/200"
+        path: "https://picsum.photos/200",
+        contact: "0778955744"
     },
     {
         id: "2",
         name: "KCF Kabalagala",
         location: "Kabalagala",
         status: "up",
-        path: "https://picsum.photos/200"
+        path: "https://picsum.photos/200",
+        contact: "0778955744"
     },
     {
         id: "3",
         name: "Hungerz Out",
         location: "Sir Apollo Road, plot 2204",
         status: "down",
-        path: "https://picsum.photos/200"
+        path: "https://picsum.photos/200",
+        contact: "0778955744"
     },
     {
         id: "4",
         name: "Pizza Hut",
         location: "Muyenga",
         status: "up",
-        path: "https://picsum.photos/200"
+        path: "https://picsum.photos/200",
+        contact: "0778955744"
     }
   ]
 }
@@ -47,7 +51,8 @@ export const restaurantSlice = createSlice({
       state.restaurants
     },
     addRestaurant: (state, action: PayloadAction<RestaurantType>) => {
-      [...state.restaurants, action.payload]
+      console.log(action.payload)
+      state.restaurants =  [...state.restaurants, action.payload]
     },
     updateRestaurant: (state, action:PayloadAction<RestaurantType>) => {
         console.log(state.restaurants, action.payload)
