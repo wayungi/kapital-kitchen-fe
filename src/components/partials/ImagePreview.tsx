@@ -6,4 +6,3 @@ const ImagePreview = () => (
 
 export default ImagePreview
 
-git

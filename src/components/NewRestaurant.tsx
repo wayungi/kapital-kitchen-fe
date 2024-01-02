@@ -14,6 +14,14 @@ const NewRestaurant = () => {
     const [contact, setContact] =  useState<string>('')
     const isSubmitable = [name,location, path, contact].every((element) => element !== '')
 
+
+    const clearFields = () => {
+        setName('')
+        setLocation('')
+        setPath('')
+        setContact('')
+    }
+
     const processForm = (e:FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
 
@@ -29,10 +37,7 @@ const NewRestaurant = () => {
         console.log(newRestaurant)
 
         dispatch(addRestaurant(newRestaurant))
-        setName('')
-        setLocation('')
-        setPath('')
-        setContact('')
+        clearFields()
 
 
 
