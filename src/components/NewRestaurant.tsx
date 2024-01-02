@@ -2,6 +2,7 @@ import {ChangeEvent, FormEvent, MouseEvent, useState} from 'react'
 import { useAppDispatch } from '../app/hooks'
 import { addRestaurant } from '../features/restaurants/restaurantSlice'
 import { v4 as uuidv4 } from 'uuid';
+import ImagePreview from './partials/ImagePreview';
 
 
 const NewRestaurant = () => {
@@ -21,8 +22,8 @@ const NewRestaurant = () => {
             name,
             location,
             status: 'down',
-            path: 'https://picsum.photos/200'
-            // contact
+            path: 'https://picsum.photos/200',
+            contact,
         }
 
         console.log(newRestaurant)
@@ -41,7 +42,9 @@ const NewRestaurant = () => {
         <div className="flex h-full items-center">
             <form className="bg-black rounded-lg max-w-96 mx-auto my-10 h-max md:flex md:max-w-fit" onSubmit={processForm}>
                 <div className="h-80 md:w-96 md:h-96">
-                    <img 
+                
+                    <ImagePreview />
+                    {/* <img 
                         src="https://picsum.photos/200" 
                         alt="restaurant" 
                         className="
@@ -49,7 +52,7 @@ const NewRestaurant = () => {
                             h-full 
                             object-cover 
                             rounded-t-lg 
-                            md:rounded-s-lg md:rounded-e-none"/>
+                            md:rounded-s-lg md:rounded-e-none"/> */}
                 </div>
                 <div className="space-y-5 px-6 py-4 h-80 text-gray-300 max-w-96 md:w-96">
                     <h1 className="text-gray-300 text-center">Restaurant registration</h1>
@@ -97,7 +100,7 @@ const NewRestaurant = () => {
                             value="Submit"
                             className="bg-green-600 w-full h-10 rounded-full"
                             disabled={!isSubmitable}
-                            style={isSubmitable ? {cursor: 'pointer'} : {cursor:'none'}}
+                            // style={isSubmitable ? {cursor: 'pointer'} : {cursor:'none'}}
 
                         />
                     </div>

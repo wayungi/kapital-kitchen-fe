@@ -4,4 +4,5 @@ export type RestaurantType =  {
     location: string,
     status: string,
     path?: string
+    contact: string
 }
