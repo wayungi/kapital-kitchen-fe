@@ -4,7 +4,7 @@ import NewRestaurant from "./components/NewRestaurant"
 function App() {
   return (
     <main className="p-1 h-screen">
-      <RestaurantList />
+      {/* <RestaurantList /> */}
       <NewRestaurant />
     </main>
   )

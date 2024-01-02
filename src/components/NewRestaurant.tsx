@@ -1,4 +1,4 @@
-import {ChangeEvent, FormEvent, MouseEvent, useState} from 'react'
+import {ChangeEvent, FormEvent, MouseEvent, useState, useEffect} from 'react'
 import { useAppDispatch } from '../app/hooks'
 import { addRestaurant } from '../features/restaurants/restaurantSlice'
 import { v4 as uuidv4 } from 'uuid';
@@ -7,11 +7,16 @@ import ImagePreview from './partials/ImagePreview';
 
 const NewRestaurant = () => {
     const dispatch =  useAppDispatch()
-
     const [name, setName] = useState<string>('')
     const [location, setLocation] = useState<string>('')
     const [path, setPath] = useState<string>('')
     const [contact, setContact] =  useState<string>('')
+    const [file, setFile] = useState<File | undefined>();
+
+    const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+        setFile(event.target.files?.[0]);
+    }
+
     const isSubmitable = [name,location, path, contact].every((element) => element !== '')
 
 
@@ -33,31 +38,19 @@ const NewRestaurant = () => {
             path: 'https://picsum.photos/200',
             contact,
         }
-
-        console.log(newRestaurant)
-
         dispatch(addRestaurant(newRestaurant))
         clearFields()
-
-
-
     }
 
     return (
         <div className="flex h-full items-center">
             <form className="bg-black rounded-lg max-w-96 mx-auto my-10 h-max md:flex md:max-w-fit" onSubmit={processForm}>
                 <div className="h-80 md:w-96 md:h-96">
-                
-                    <ImagePreview />
-                    {/* <img 
-                        src="https://picsum.photos/200" 
+                    { file && <img 
+                        src={URL.createObjectURL(file)} 
                         alt="restaurant" 
-                        className="
-                            w-full 
-                            h-full 
-                            object-cover 
-                            rounded-t-lg 
-                            md:rounded-s-lg md:rounded-e-none"/> */}
+                        className="w-full h-full object-cover rounded-t-lg md:rounded-s-lg md:rounded-e-none"/>  || <ImagePreview 
+                    />}
                 </div>
                 <div className="space-y-5 px-6 py-4 h-80 text-gray-300 max-w-96 md:w-96">
                     <h1 className="text-gray-300 text-center">Restaurant registration</h1>
@@ -87,7 +80,8 @@ const NewRestaurant = () => {
                             placeholder="Upload file" 
                             className="bg-black border-b-2 border-gray-400 w-full outline-none"
                             value={path}
-                            onChange={(e:ChangeEvent<HTMLInputElement>) => setPath(e.target.value)}/>
+                            onChange={handleImageUpload}
+                            />
 
                     </div>
                     <div>
