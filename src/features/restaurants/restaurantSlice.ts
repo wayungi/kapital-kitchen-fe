@@ -47,7 +47,8 @@ export const restaurantSlice = createSlice({
       state.restaurants
     },
     addRestaurant: (state, action: PayloadAction<RestaurantType>) => {
-      [...state.restaurants, action.payload]
+      console.log(action.payload)
+      state.restaurants =  [...state.restaurants, action.payload]
     },
     updateRestaurant: (state, action:PayloadAction<RestaurantType>) => {
         console.log(state.restaurants, action.payload)

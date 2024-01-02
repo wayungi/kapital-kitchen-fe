@@ -3,13 +3,8 @@ import NewRestaurant from "./components/NewRestaurant"
 
 function App() {
   return (
-    <main className="
-      p-1 
-      flex 
-      justify-center  
-      content-center
-      h-screen">
-      {/* <RestaurantList /> */}
+    <main className="p-1 h-screen">
+      <RestaurantList />
       <NewRestaurant />
     </main>
   )
