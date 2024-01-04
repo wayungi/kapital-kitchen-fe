@@ -1,53 +1,33 @@
-import {ChangeEvent, FormEvent, MouseEvent, useState, useEffect} from 'react'
-import { useAppDispatch } from '../app/hooks'
-import { addRestaurant } from '../features/restaurants/restaurantSlice'
-import { v4 as uuidv4 } from 'uuid';
-import ImagePreview from './partials/ImagePreview';
+import { useState, ChangeEvent } from 'react'
+import { useAppSelector } from "../app/hooks"
+import { selectRestaurantById } from '../features/restaurants/restaurantSlice'
+
+type Updateprops = {
+    id: string
+}
+
+const UpdateRestaurant = ({ id }: Updateprops) => {
+  const {name, location, contact, path} =  useAppSelector((state) => selectRestaurantById(state, id))
+  const [contactEdit, setContact] = useState<string>(contact)
+  const [pathEdit, setPath] = useState<string | undefined>(path)
+  const [locationEdit, setLocation] = useState<string>(location)
+  const [nameEdit, setName] = useState<string>(name)
+
+  const handleImageUpload = () => {
+    console.log('handle image upload')
+  }
+
+  const handleFormSubmit = () => {
+    console.log('form submitted')
+  }
 
 
-
-
-const NewRestaurant = () => {
-    const dispatch =  useAppDispatch()
-    const [name, setName] = useState<string>('')
-    const [location, setLocation] = useState<string>('')
-    const [path, setPath] = useState<string>('')
-    const [contact, setContact] =  useState<string>('')
-    const [file, setFile] = useState<File | undefined>();
-
-    const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
-        setFile(event.target.files?.[0]);
-    }
-
-    const isSubmitable = [name,location, path, contact].every((element) => element !== '')
-
-    const clearFields = () => {
-        setName('')
-        setLocation('')
-        setPath('')
-        setContact('')
-    }
-
-    const processForm = (e:FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
-        const newRestaurant  =  {
-            id: uuidv4(),
-            name,
-            location,
-            status: 'down',
-            path: 'https://picsum.photos/200',
-            contact,
-        }
-        dispatch(addRestaurant(newRestaurant))
-        clearFields()
-    }
-
-    return (
-        <div className="flex h-full items-center">
-            <form className="bg-black rounded-lg max-w-96 mx-auto my-10 h-max md:flex md:max-w-fit" onSubmit={processForm}>
+  return (
+    <div className="flex h-full items-center">
+            <form className="bg-black rounded-lg max-w-96 mx-auto my-10 h-max md:flex md:max-w-fit" onSubmit={ handleFormSubmit }>
                 <div className="h-80 md:w-96 md:h-96">
-                    { file && <img 
-                        src={URL.createObjectURL(file)} 
+                    { <img 
+                        src={pathEdit} 
                         alt="restaurant" 
                         className="w-full h-full object-cover rounded-t-lg md:rounded-s-lg md:rounded-e-none"/>  || <ImagePreview 
                     />}
@@ -60,7 +40,7 @@ const NewRestaurant = () => {
                             id="name" 
                             placeholder="Name" 
                             className="bg-black border-b-2 border-gray-400 w-full outline-none"
-                            value={name}
+                            value={nameEdit}
                             onChange={(e:ChangeEvent<HTMLInputElement>) => setName(e.target.value)} 
                         />
                     </div>
@@ -70,7 +50,7 @@ const NewRestaurant = () => {
                             id="location" 
                             placeholder="Location"
                             className="bg-black border-b-2 border-gray-400 w-full outline-none"
-                            value={location}
+                            value={locationEdit}
                             onChange={(e:ChangeEvent<HTMLInputElement>) => setLocation(e.target.value)}/>
                     </div>
                     <div>
@@ -79,10 +59,9 @@ const NewRestaurant = () => {
                             id="image" 
                             placeholder="Upload file" 
                             className="bg-black border-b-2 border-gray-400 w-full outline-none"
-                            value={path}
+                            // value={pathEdit}
                             onChange={handleImageUpload}
                             />
-
                     </div>
                     <div>
                         <input 
@@ -90,7 +69,7 @@ const NewRestaurant = () => {
                             id="contact" 
                             placeholder="Contact"
                             className="bg-black border-b-2 border-gray-400 w-full outline-none"
-                            value={contact}
+                            value={contactEdit}
                             onChange={(e:ChangeEvent<HTMLInputElement>) => setContact(e.target.value)}/>
                     </div>
                     <div>
@@ -98,7 +77,7 @@ const NewRestaurant = () => {
                             type="submit" 
                             value="Submit"
                             className="bg-green-600 w-full h-10 rounded-full"
-                            disabled={!isSubmitable}
+                            // disabled={!isSubmitable}
                             // style={isSubmitable ? {cursor: 'pointer'} : {cursor:'none'}}
 
                         />
@@ -106,7 +85,7 @@ const NewRestaurant = () => {
                 </div>
             </form>
         </div>
-    )
+  )
 }
 
-export default NewRestaurant
+export default UpdateRestaurant
