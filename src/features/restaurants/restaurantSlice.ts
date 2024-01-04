@@ -51,11 +51,11 @@ export const restaurantSlice = createSlice({
       state.restaurants
     },
     addRestaurant: (state, action: PayloadAction<RestaurantType>) => {
-      console.log(action.payload)
       state.restaurants =  [...state.restaurants, action.payload]
     },
     updateRestaurant: (state, action:PayloadAction<RestaurantType>) => {
-        console.log(state.restaurants, action.payload)
+      console.log(action.payload)
+        state.restaurants = [action.payload, ...state.restaurants.filter((restaurant) => restaurant.id !== action.payload.id)]
     },
     deleteRestaurant: (state, action:PayloadAction<RestaurantType>) => {
         console.log(state.restaurants, action.payload)
@@ -72,6 +72,7 @@ export const restaurantSlice = createSlice({
 export const { 
     getAllRestaurants, 
     addRestaurant, 
+    getRetsuarntById,
     updateRestaurant,
     deleteRestaurant,
     deactivateRestaurant,
@@ -79,4 +80,6 @@ export const {
  } = restaurantSlice.actions
 
 export const selectAllRestaurants = (state: RootState) => state.restaurants.restaurants
+export const selectRestaurantById = (state: RootState, id: string) => state.restaurants.restaurants.filter((restaurant) =>  restaurant.id === id)[0]
+
 export default restaurantSlice.reducer
