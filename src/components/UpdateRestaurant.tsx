@@ -30,11 +30,11 @@ const UpdateRestaurant = ({ id }: Updateprops) => {
     event.preventDefault()
     const newRestaurant  =  {
       id,
-      name,
-      location,
+      name:nameEdit,
+      location: locationEdit,
       status,
       path,
-      contact,
+      contact: contactEdit,
   }
   dispatch(updateRestaurant(newRestaurant))
   clearFields()
