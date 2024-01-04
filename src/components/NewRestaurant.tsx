@@ -16,7 +16,7 @@ const NewRestaurant = () => {
     const [file, setFile] = useState<File | undefined>();
 
     const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
-        setFile(event.target.files?.[0]);
+        setFile(event.target.files?.[0]); // displays the live uploaded image 
     }
 
     const isSubmitable = [name,location, path, contact].every((element) => element !== '')
