@@ -29,6 +29,7 @@ const RestaurantCard = ({ id, name, location, path }: RestaurantCardType) => {
       ">
        <h1 className="font-bold">{name}</h1>
        <p className="font-light">{location}</p>
+
        <div>
        <button onClick={handleDelete}>Delete</button>
        </div>

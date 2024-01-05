@@ -57,7 +57,8 @@ export const restaurantSlice = createSlice({
         state.restaurants = [action.payload, ...state.restaurants.filter((restaurant) => restaurant.id !== action.payload.id)]
     },
     deleteRestaurant: (state, action:PayloadAction<string>) => {
-        console.log(state.restaurants, action.payload)
+        console.log( action.payload)
+        state.restaurants = state.restaurants.filter((restaurant) =>restaurant.id !== action.payload  )
     },
     deactivateRestaurant: (state, action:PayloadAction<RestaurantType>) => {
         console.log(state.restaurants, action.payload)
