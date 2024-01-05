@@ -68,10 +68,8 @@ export const restaurantSlice = createSlice({
     toggleStatus: (state, action:PayloadAction<StatusData>) => {
       const { id, status } = action.payload
       const targetRestaurant: RestaurantType | undefined = state.restaurants.find((restaurant) => restaurant.id === id)
-      if(targetRestaurant === undefined) return
+      if(!targetRestaurant) return
       state.restaurants = [{...targetRestaurant, status}, ...state.restaurants.filter((restaurant) => restaurant.id !== id)]
-      // console.log(targetRestaurant)
-      console.log(state.restaurants)
     }
   }
 })
