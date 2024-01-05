@@ -6,13 +6,18 @@ export interface RestaurantState {
   restaurants: RestaurantType[]
 }
 
+type StatusData = {
+  id: string,
+  status: boolean
+}
+
 const initialState: RestaurantState = {
   restaurants: [
     {
         id: "1",
         name: "Nandos",
         location: "Kampala Road",
-        status: "up",
+        status: true,
         path: "https://picsum.photos/200",
         contact: "0778955744"
     },
@@ -20,7 +25,7 @@ const initialState: RestaurantState = {
         id: "2",
         name: "KCF Kabalagala",
         location: "Kabalagala",
-        status: "up",
+        status: true,
         path: "https://picsum.photos/200",
         contact: "0778955744"
     },
@@ -28,7 +33,7 @@ const initialState: RestaurantState = {
         id: "3",
         name: "Hungerz Out",
         location: "Sir Apollo Road, plot 2204",
-        status: "down",
+        status: false,
         path: "https://picsum.photos/200",
         contact: "0778955744"
     },
@@ -36,7 +41,7 @@ const initialState: RestaurantState = {
         id: "4",
         name: "Pizza Hut",
         location: "Muyenga",
-        status: "up",
+        status: true,
         path: "https://picsum.photos/200",
         contact: "0778955744"
     }
@@ -60,11 +65,13 @@ export const restaurantSlice = createSlice({
         console.log( action.payload)
         state.restaurants = state.restaurants.filter((restaurant) =>restaurant.id !== action.payload  )
     },
-    deactivateRestaurant: (state, action:PayloadAction<RestaurantType>) => {
-        console.log(state.restaurants, action.payload)
-    },
-    activateRestaurant: (state, action:PayloadAction<RestaurantType>) => {
-        console.log(state.restaurants, action.payload)
+    toggleStatus: (state, action:PayloadAction<StatusData>) => {
+      const { id, status } = action.payload
+      const targetRestaurant: RestaurantType | undefined = state.restaurants.find((restaurant) => restaurant.id === id)
+      if(targetRestaurant === undefined) return
+      state.restaurants = [{...targetRestaurant, status}, ...state.restaurants.filter((restaurant) => restaurant.id !== id)]
+      // console.log(targetRestaurant)
+      console.log(state.restaurants)
     }
   }
 })
@@ -72,11 +79,9 @@ export const restaurantSlice = createSlice({
 export const { 
     getAllRestaurants, 
     addRestaurant, 
-    getRetsuarntById,
     updateRestaurant,
     deleteRestaurant,
-    deactivateRestaurant,
-    activateRestaurant
+    toggleStatus,
  } = restaurantSlice.actions
 
 export const selectAllRestaurants = (state: RootState) => state.restaurants.restaurants
