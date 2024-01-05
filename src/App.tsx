@@ -5,9 +5,9 @@ import UpdateRestaurant from "./components/UpdateRestaurant"
 function App() {
   return (
     <main className="p-1 h-screen">
-      {/* <RestaurantList /> */}
+      <RestaurantList />
       {/* <NewRestaurant /> */}
-      <UpdateRestaurant id="1"/>
+      {/* <UpdateRestaurant id="1"/> */}
     </main> 
   )
 }
