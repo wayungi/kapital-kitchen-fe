@@ -53,8 +53,7 @@ export const menuSlice = createSlice({
         state.menuItems = [action.payload, ...state.menuItems.filter((item) => item.id !== action.payload.id)]
     },
     deleteMenuItem: (state, action:PayloadAction<string>) => {
-        console.log( action.payload)
-        state.menuItems = state.menuItems.filter((item) => item.id !== action.payload  )
+        state.menuItems = state.menuItems.filter((item) => item.id !== action.payload)
     }
   }
 })

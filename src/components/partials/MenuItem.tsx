@@ -1,10 +1,19 @@
 import { MenuItemType } from "../../custom"
+import { useAppDispatch } from "../../app/hooks"
+import { deleteMenuItem } from "../../features/menu/menuSlice"
 
 type MenuItemProps = {
     menuData: MenuItemType
 }
+
 const MenuItem = ({menuData}: MenuItemProps) => {
-    const { name, path, price } = menuData
+    const dispatch = useAppDispatch()
+
+    const { id, name, path, price } = menuData
+
+    const handleDelete = () => {
+        dispatch(deleteMenuItem(id))
+    }
 
   return (
     <div>
@@ -15,7 +24,7 @@ const MenuItem = ({menuData}: MenuItemProps) => {
             <p>{name}</p>
             <p>{price}</p>
             <div>
-                <button>Delete</button> {/* avaialable for admins/ restaurant owners*/}
+                <button onClick={handleDelete}>Delete</button> {/* avaialable for admins/ restaurant owners*/}
                 <button>Edit</button> {/* avaialable for admins/ restaurant owners*/}
                 <button>Save</button> {/* avaialable for admins/ restaurant owners after editing*/}
                 <button>Add to Order</button>  {/* avaialable to all*/}
