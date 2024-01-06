@@ -13,7 +13,9 @@ const MenuItem = ({menuData}: MenuItemProps) => {
     const { id, name, path, price } = menuData
     const [menuItemName, setMenuItemName] = useState(name)
     const [menuItemPrice, setMenuItemPrice] = useState(price.toString())
+    const [canAddToOrder, setCanAddToOrder] = useState<boolean>(true)
 
+    
     const handleDelete = () => {
         dispatch(deleteMenuItem(id))
     }
@@ -26,20 +28,15 @@ const MenuItem = ({menuData}: MenuItemProps) => {
         setReadOnly(true)
         const nameChange: boolean = menuItemName !== name
         const priceChange: boolean = menuItemPrice !== price.toString()
-
         if(nameChange){
             menuData = {...menuData, name:menuItemName }
         }
-
         if(priceChange){
             menuData = {...menuData, price: +menuItemPrice }
         }
-
         if(nameChange || priceChange ){
             dispatch(updateMenuItem(menuData))
         }
-
-
     }
 
     
@@ -62,10 +59,9 @@ const MenuItem = ({menuData}: MenuItemProps) => {
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setMenuItemPrice(e.target.value)}/>
             <div>
                 <button onClick={handleDelete}>Delete</button> {/* avaialable for admins/ restaurant owners*/}
-                <button onClick={handleEdit}>Edit</button> {/* avaialable for admins/ restaurant owners*/}
-                <button onClick={handleSave}>Save</button> {/* avaialable for admins/ restaurant owners after editing*/}
-                <button>Add to Order</button>  {/* avaialable to all*/}
-                <button>Cancel Order</button>   {/* avaialable to all after odering*/}
+                { readOnly ? <button onClick={handleEdit}>Edit</button> : <button onClick={handleSave}>Save</button> }
+                { canAddToOrder ? <button onClick={() => setCanAddToOrder(false)}>Add to Order</button> : 
+                <button onClick={() => setCanAddToOrder(true)}>Remove from Order</button> }
             </div>
         </div>
     </div>
