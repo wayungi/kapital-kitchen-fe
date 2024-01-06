@@ -7,7 +7,7 @@ export type RestaurantType =  {
     contact: string,
 }
 
-export type MenuItem =  {
+export type MenuItemType =  {
     id: string,
     name: string,
     path: string,
