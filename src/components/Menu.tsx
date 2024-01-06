@@ -1,11 +1,15 @@
-import { useAppSelector } from "../app/hooks"
-import { selectAllMenuItems } from "../features/menu/menuSlice"
+// import { useAppSelector } from "../app/hooks"
+import { MenuItemType } from "../custom"
+// import { selectAllMenuItems } from "../features/menu/menuSlice"
 import MenuItem from "./partials/MenuItem"
 
+type MenuProp = {
+  menuItemList: MenuItemType[]
+}
 
-const Menu = () => {
-  const menuItemList =  useAppSelector((state) => selectAllMenuItems(state))
-  console.log(menuItemList)
+
+const Menu = ({menuItemList} : MenuProp) => {
+  // const menuItemList =  useAppSelector((state) => selectAllMenuItems(state))
   const menuItemDisplay = menuItemList.map((menuItem) => <MenuItem menuData={menuItem} />)
   return (
     <div>
