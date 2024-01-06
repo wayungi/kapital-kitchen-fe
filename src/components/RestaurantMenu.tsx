@@ -8,7 +8,6 @@ type RestaurantMenuProp = {
  
 const RestaurantMenu = ({ id }: RestaurantMenuProp) => {
     const menuItems = useAppSelector((state) => selectRestaurantMenu(state, id))
-
     return (
         <Menu menuItemList={menuItems} />
     )
