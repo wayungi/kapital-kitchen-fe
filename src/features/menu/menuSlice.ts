@@ -66,6 +66,6 @@ export const {
  } = menuSlice.actions
 
 export const selectAllMenuItems = (state: RootState) => state.menuItems.menuItems
-export const selectRestaurantById = (state: RootState, id: string) => state.menuItems.menuItems.filter((item) =>  item.id === id)[0]
+export const selectRestaurantMenu = (state: RootState, id: string) => state.menuItems.menuItems.filter((menu) =>  menu.restaurantId === id)
 
 export default menuSlice.reducer
