@@ -1,7 +1,8 @@
 import RestaurantList from "./components/RestaurantList"
 import NewRestaurant from "./components/NewRestaurant"
 import UpdateRestaurant from "./components/UpdateRestaurant"
-import Menu from "./components/Menu"
+import GeneralMenu from "./components/GeneralMenu"
+import RestaurantMenu from "./components/RestaurantMenu"
 
 function App() {
   return (
@@ -9,7 +10,8 @@ function App() {
       {/* <RestaurantList /> */}
       {/* <NewRestaurant /> */}
       {/* <UpdateRestaurant id="1"/> */}
-      <Menu />
+      {/* <GeneralMenu /> */}
+      <RestaurantMenu id="1" />
     </main> 
   )
 }
