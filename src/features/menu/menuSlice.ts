@@ -49,7 +49,7 @@ export const menuSlice = createSlice({
     addMenuItem: (state, action: PayloadAction<MenuItemType>) => {
       state.menuItems =  [...state.menuItems, action.payload]
     },
-    updateMenuItems: (state, action:PayloadAction<MenuItemType>) => {
+    updateMenuItem: (state, action:PayloadAction<MenuItemType>) => {
         state.menuItems = [action.payload, ...state.menuItems.filter((item) => item.id !== action.payload.id)]
     },
     deleteMenuItem: (state, action:PayloadAction<string>) => {
@@ -61,7 +61,7 @@ export const menuSlice = createSlice({
 export const { 
     getMenuItems, 
     addMenuItem, 
-    updateMenuItems,
+    updateMenuItem,
     deleteMenuItem,
  } = menuSlice.actions
 
