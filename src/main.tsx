@@ -10,7 +10,7 @@ import NewRestaurant from "./components/NewRestaurant"
 import UpdateRestaurant from "./components/UpdateRestaurant"
 import GeneralMenu from "./components/GeneralMenu"
 import RestaurantMenu from "./components/RestaurantMenu"
-
+import ErrorPage from './components/ErrorPage.tsx'
 // import { createRoot } from "react-dom/client";
 import {
   createBrowserRouter,
@@ -23,6 +23,7 @@ const router = createBrowserRouter([
   {
     path: "/", /*root route*/
     element: <App />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/restaurantList",
