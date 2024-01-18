@@ -1,8 +1,5 @@
-// import RestaurantList from "./components/RestaurantList"
-// import NewRestaurant from "./components/NewRestaurant"
-// import UpdateRestaurant from "./components/UpdateRestaurant"
-// import GeneralMenu from "./components/GeneralMenu"
-// import RestaurantMenu from "./components/RestaurantMenu"
+import { Outlet } from "react-router-dom";
+
 
 function App() {
   return (
@@ -10,11 +7,9 @@ function App() {
       <div>
         <p>Side bar content</p>
       </div>
-      {/* <RestaurantList />
-      <NewRestaurant />
-      <UpdateRestaurant id="1"/>
-      <GeneralMenu />
-      <RestaurantMenu id="1" /> */}
+      <div>
+        <Outlet />
+      </div>
     </main> 
   )
 }

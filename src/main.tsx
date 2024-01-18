@@ -24,27 +24,30 @@ const router = createBrowserRouter([
     path: "/", /*root route*/
     element: <App />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/restaurantList",
+        element: <RestaurantList />,
+      },
+      {
+        path: "newRestaurant",
+        element: <NewRestaurant />,
+      },
+      {
+        path: "UpdateRestaurant",
+        element: <UpdateRestaurant id='1'/>,
+      },
+      {
+        path: "GeneralMenu",
+        element: <GeneralMenu />,
+      },
+      {
+        path: "RestaurantMenu",
+        element: <RestaurantMenu  id="1"/>,
+      },
+    ]
   },
-  {
-    path: "/restaurantList",
-    element: <RestaurantList />,
-  },
-  {
-    path: "newRestaurant",
-    element: <NewRestaurant />,
-  },
-  {
-    path: "UpdateRestaurant",
-    element: <UpdateRestaurant id='1'/>,
-  },
-  {
-    path: "GeneralMenu",
-    element: <GeneralMenu />,
-  },
-  {
-    path: "RestaurantMenu",
-    element: <RestaurantMenu  id="1"/>,
-  },
+  
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
