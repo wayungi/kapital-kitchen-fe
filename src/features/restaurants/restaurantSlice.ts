@@ -4,6 +4,7 @@ import { RestaurantType } from '../../custom'
 
 export interface RestaurantState {
   restaurants: RestaurantType[]
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
 type StatusData = {
@@ -18,22 +19,18 @@ export const fetchRestaurants = createAsyncThunk('restaurants/fetchRestaurants',
   }
 )
 
-// interface UsersState {
-//   entities: []
-//   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
-// }
-
 const initialState: RestaurantState = {
-  restaurants: []
+  restaurants: [],
+  loading: "idle"
 }
 
 export const restaurantSlice = createSlice({
   name: 'restaurant',
   initialState,
   reducers: {
-    getAllRestaurants: state => {
-      state.restaurants
-    },
+    // getAllRestaurants: state => {
+    //   state.restaurants
+    // },
     addRestaurant: (state, action: PayloadAction<RestaurantType>) => {
       state.restaurants =  [...state.restaurants, action.payload]
     },
@@ -54,14 +51,20 @@ export const restaurantSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(fetchRestaurants.fulfilled, (state, action) => {
-      console.log(action.payload)
+      state.loading = 'succeeded'
       state.restaurants = [...action.payload]
+    })
+    .addCase(fetchRestaurants.pending, (state) => {
+      state.loading = 'pending'
+    })
+    .addCase(fetchRestaurants.rejected, (state) => {
+      state.loading = 'failed'
     })
   },
 })
 
 export const { 
-    getAllRestaurants, 
+    // getAllRestaurants, 
     addRestaurant, 
     updateRestaurant,
     deleteRestaurant,
