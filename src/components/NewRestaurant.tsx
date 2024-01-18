@@ -1,7 +1,6 @@
-import {ChangeEvent, FormEvent, MouseEvent, useState, useEffect} from 'react'
+import { ChangeEvent, FormEvent, MouseEvent, useState } from 'react'
 import { useAppDispatch } from '../app/hooks'
 import { addRestaurant } from '../features/restaurants/restaurantSlice'
-import { v4 as uuidv4 } from 'uuid';
 import ImagePreview from './partials/ImagePreview';
 
 
@@ -19,7 +18,7 @@ const NewRestaurant = () => {
         setFile(event.target.files?.[0]); // displays the live uploaded image 
     }
 
-    const isSubmitable = [name,location, path, contact].every((element) => element !== '')
+    const isSubmitable = [name,location, /*path,*/ contact].every((element) => element !== '')
 
     const clearFields = () => {
         setName('')
@@ -30,8 +29,8 @@ const NewRestaurant = () => {
 
     const processForm = (e:FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
+        console.log('submitted')
         const newRestaurant  =  {
-            id: uuidv4(),
             name,
             location,
             status: 'down',

@@ -1,8 +1,8 @@
 export type RestaurantType =  {
-    _id: string,
+    _id?: string,
     name: string,
     location: string,
-    status: boolean,
+    status: string,
     path?: string,
     contact: string,
 }
