@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import type { RootState } from '../../app/store'
 import { RestaurantType } from '../../custom'
 
@@ -11,41 +11,20 @@ type StatusData = {
   status: boolean
 }
 
+export const fetchRestaurants = createAsyncThunk('restaurants/fetchRestaurants', async () => {
+    const response = await fetch('http://127.0.0.1:3000/restaurants/')
+    const result = await response.json() 
+    return result.response
+  }
+)
+
+// interface UsersState {
+//   entities: []
+//   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+// }
+
 const initialState: RestaurantState = {
-  restaurants: [
-    {
-        id: "1",
-        name: "Nandos",
-        location: "Kampala Road",
-        status: true,
-        path: "https://picsum.photos/200",
-        contact: "0778955744"
-    },
-    {
-        id: "2",
-        name: "KCF Kabalagala",
-        location: "Kabalagala",
-        status: true,
-        path: "https://picsum.photos/200",
-        contact: "0778955744"
-    },
-    {
-        id: "3",
-        name: "Hungerz Out",
-        location: "Sir Apollo Road, plot 2204",
-        status: false,
-        path: "https://picsum.photos/200",
-        contact: "0778955744"
-    },
-    {
-        id: "4",
-        name: "Pizza Hut",
-        location: "Muyenga",
-        status: true,
-        path: "https://picsum.photos/200",
-        contact: "0778955744"
-    }
-  ]
+  restaurants: []
 }
 
 export const restaurantSlice = createSlice({
@@ -71,7 +50,14 @@ export const restaurantSlice = createSlice({
       if(!targetRestaurant) return
       state.restaurants = [{...targetRestaurant, status}, ...state.restaurants.filter((restaurant) => restaurant.id !== id)]
     }
-  }
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(fetchRestaurants.fulfilled, (state, action) => {
+      console.log(action.payload)
+      state.restaurants = [...action.payload]
+    })
+  },
 })
 
 export const { 

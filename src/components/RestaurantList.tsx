@@ -23,12 +23,12 @@ const RestaurantList = () => {
     
 
     const restaurantCards = restaurantsList.map((restaurant: RestaurantType) =>
-    <article key={restaurant.id} className="mx-2 my-10 shadow-lg sm:flex">
+    <article key={restaurant._id} className="mx-2 my-10 shadow-lg sm:flex">
       <RestaurantCard 
         name={restaurant.name}
         location={restaurant.location}
         path={restaurant.path}
-        id={restaurant.id}
+        id={restaurant._id}
         status={restaurant.status}
       />
     </article>
