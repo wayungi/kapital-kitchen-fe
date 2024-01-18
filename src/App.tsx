@@ -1,17 +1,21 @@
-import RestaurantList from "./components/RestaurantList"
-import NewRestaurant from "./components/NewRestaurant"
-import UpdateRestaurant from "./components/UpdateRestaurant"
-import GeneralMenu from "./components/GeneralMenu"
-import RestaurantMenu from "./components/RestaurantMenu"
+import { Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function App() {
   return (
     <main className="p-1 h-screen">
-      {/* <RestaurantList /> */}
-      {/* <NewRestaurant /> */}
-      {/* <UpdateRestaurant id="1"/> */}
-      {/* <GeneralMenu /> */}
-      <RestaurantMenu id="1" />
+      <div>
+        <ul>
+          <li><Link to={`/restaurantList`}>Get All restaurants</Link></li>
+          <li><Link to={`/newRestaurant`}>post a restaurant</Link></li>
+          {/* 
+           update a restaurant,delete a restaurant, deactivate, activate -> buttons
+          */}
+        </ul>
+      </div>
+      <div>
+        <Outlet />
+      </div>
     </main> 
   )
 }
