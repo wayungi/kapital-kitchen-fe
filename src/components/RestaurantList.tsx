@@ -1,47 +1,50 @@
-import { RestaurantType } from "../custom"
-import RestaurantCard from "./RestaurantCard"
-import { useAppSelector } from "../app/hooks"
-import { selectAllRestaurants } from "../features/restaurants/restaurantSlice"
+import { useEffect } from "react";
+import { RestaurantType } from "../custom";
+import RestaurantCard from "./RestaurantCard";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { selectAllRestaurants, fetchRestaurants } from "../features/restaurants/restaurantSlice";
 
 const RestaurantList = () => {
-    const restaurantsList: RestaurantType[] = useAppSelector((state) => selectAllRestaurants(state))
-    // const [jacka, setRestaurants] =  useState<RestaurantType[]>([])
+  const dispatch = useAppDispatch();
+  const restaurantsList: RestaurantType[] = useAppSelector((state) => selectAllRestaurants(state));
+  const restaurantStatus = useAppSelector((state) => state.restaurants.loading);
+  const error = useAppSelector((state) => state.restaurants.error)
 
-    // useEffect(() => {
-    //     const fetchRestaurants = async(): Promise<RestaurantType[]> => {
-    //         const restaurants = await fetch('http://127.0.0.1:3000/restaurants')
-    //         .then(res => {
-    //             return res.json()})
-    //         .catch(err => { if (err instanceof Error) console.log(err)})
-    //         return restaurants
-    //     }
-    //     fetchRestaurants().then(restaurants => setRestaurants(restaurants))
-    // }, [])
+  useEffect(() => {
+    if (restaurantStatus === 'idle') {
+      dispatch(fetchRestaurants())
+    }
+  }, [restaurantStatus, dispatch])
 
-    // console.log(jacka)
-
-    
-
-    const restaurantCards = restaurantsList.map((restaurant: RestaurantType) =>
-    <article key={restaurant.id} className="mx-2 my-10 shadow-lg sm:flex">
-      <RestaurantCard 
-        name={restaurant.name}
-        location={restaurant.location}
-        path={restaurant.path}
-        id={restaurant.id}
-        status={restaurant.status}
-      />
-    </article>
-    )
+  let content
+  if(restaurantStatus === 'pending'){
+    content = <div>Loading</div> /*chanage this into a loading component*/
+  }else if(restaurantStatus === 'completed'){
+    content = restaurantsList.map((restaurant: RestaurantType) => (
+      <article key={restaurant._id} className="mx-2 my-10 shadow-lg sm:flex">
+        <RestaurantCard
+          name={restaurant.name}
+          location={restaurant.location}
+          path={restaurant.path}
+          id={restaurant._id}
+          status={restaurant.status}
+        />
+      </article>
+    ));
+  }else if(restaurantStatus === 'failed'){
+    content = <div>{error}</div> // change to an error component
+  }
 
   return (
-    <div className="
+    <div
+      className="
       max-w-4xl
       mx-auto
-    ">
-      {restaurantCards}
+    "
+    >
+      {content}
     </div>
-  )
-}
+  );
+};
 
-export default RestaurantList
+export default RestaurantList;

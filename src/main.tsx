@@ -4,20 +4,23 @@ import App from './App.tsx'
 import './index.css'
 import store from './app/store'
 import { Provider } from 'react-redux'
+import { fetchRestaurants } from './features/restaurants/restaurantSlice.ts'
+
 
 import RestaurantList from "./components/RestaurantList"
 import NewRestaurant from "./components/NewRestaurant"
 import UpdateRestaurant from "./components/UpdateRestaurant"
-import GeneralMenu from "./components/GeneralMenu"
 import RestaurantMenu from "./components/RestaurantMenu"
 import ErrorPage from './components/ErrorPage.tsx'
-// import { createRoot } from "react-dom/client";
+
 import {
   createBrowserRouter,
   RouterProvider,
   // Route,
   // Link,
 } from "react-router-dom";
+
+// store.dispatch(fetchRestaurants())
 
 const router = createBrowserRouter([
   {
@@ -36,10 +39,6 @@ const router = createBrowserRouter([
       {
         path: "UpdateRestaurant",
         element: <UpdateRestaurant id='1'/>,
-      },
-      {
-        path: "GeneralMenu",
-        element: <GeneralMenu />,
       },
       {
         path: "RestaurantMenu",
