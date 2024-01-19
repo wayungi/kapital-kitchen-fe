@@ -32,7 +32,8 @@ export const addRestaurant = createAsyncThunk(
       },
       body: JSON.stringify(restaurant),
     });
-    const result = response.json();
+    const result = await response.json();
+    return result
   }
 );
 
@@ -90,7 +91,10 @@ export const restaurantSlice = createSlice({
       .addCase(fetchRestaurants.rejected, (state, action) => {
         state.loading = "failed";
         state.error = action.error.message
-      });
+      })
+      .addCase(addRestaurant.fulfilled, (state, action) => {
+        state.restaurants = [...state.restaurants, action.payload]
+      })
   },
 });
 
