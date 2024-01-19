@@ -40,6 +40,7 @@ export const addRestaurant = createAsyncThunk(
 const initialState: RestaurantState = {
   restaurants: [],
   loading: "idle",
+  // addRestaurantStatus: "idle",
   error: undefined,
 };
 
