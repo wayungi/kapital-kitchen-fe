@@ -3,9 +3,6 @@ import { useAppDispatch } from '../app/hooks'
 import { addRestaurant } from '../features/restaurants/restaurantSlice'
 import ImagePreview from './partials/ImagePreview';
 
-
-
-
 const NewRestaurant = () => {
     const dispatch =  useAppDispatch()
     const [name, setName] = useState<string>('')

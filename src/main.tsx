@@ -20,7 +20,7 @@ import {
   // Link,
 } from "react-router-dom";
 
-store.dispatch(fetchRestaurants())
+// store.dispatch(fetchRestaurants())
 
 const router = createBrowserRouter([
   {

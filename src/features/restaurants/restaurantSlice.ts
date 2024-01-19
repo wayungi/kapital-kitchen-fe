@@ -5,6 +5,7 @@ import { RestaurantType } from "../../custom";
 export interface RestaurantState {
   restaurants: RestaurantType[];
   loading: "idle" | "pending" | "succeeded" | "failed";
+  error: string | undefined; /*undefined was initially null, change it to resolve error in the extra reduces rejected case*/
 }
 
 type StatusData = {
@@ -31,13 +32,14 @@ export const addRestaurant = createAsyncThunk(
       },
       body: JSON.stringify(restaurant),
     });
-    console.log(response);
+    const result = response.json();
   }
 );
 
 const initialState: RestaurantState = {
   restaurants: [],
   loading: "idle",
+  error: undefined,
 };
 
 export const restaurantSlice = createSlice({
@@ -46,10 +48,10 @@ export const restaurantSlice = createSlice({
   reducers: {
     // getAllRestaurants: state => {
     //   state.restaurants
-    // },
-    // addRestaurant: (state, action: PayloadAction<RestaurantType>) => {
-    //   state.restaurants =  [...state.restaurants, action.payload]
-    // },
+    //
+    restaurantAdd: (state, action: PayloadAction<RestaurantType>) => {
+      state.restaurants = [...state.restaurants, action.payload];
+    },
     updateRestaurant: (state, action: PayloadAction<RestaurantType>) => {
       state.restaurants = [
         action.payload,
@@ -78,15 +80,16 @@ export const restaurantSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      .addCase(fetchRestaurants.pending, (state) => {
+        state.loading = "pending";
+      })
       .addCase(fetchRestaurants.fulfilled, (state, action) => {
         state.loading = "succeeded";
         state.restaurants = [...action.payload];
       })
-      .addCase(fetchRestaurants.pending, (state) => {
-        state.loading = "pending";
-      })
-      .addCase(fetchRestaurants.rejected, (state) => {
+      .addCase(fetchRestaurants.rejected, (state, action) => {
         state.loading = "failed";
+        state.error = action.error.message
       });
   },
 });
