@@ -4,7 +4,7 @@ import { RestaurantType } from "../../custom";
 
 export interface RestaurantState {
   restaurants: RestaurantType[];
-  loading: "idle" | "pending" | "succeeded" | "failed";
+  loading: "idle" | "pending" | "completed" | "failed";
   error: string | undefined; /*undefined was initially null, change it to resolve error in the extra reduces rejected case*/
 }
 
@@ -84,7 +84,7 @@ export const restaurantSlice = createSlice({
         state.loading = "pending";
       })
       .addCase(fetchRestaurants.fulfilled, (state, action) => {
-        state.loading = "succeeded";
+        state.loading = "completed";
         state.restaurants = [...action.payload];
       })
       .addCase(fetchRestaurants.rejected, (state, action) => {
