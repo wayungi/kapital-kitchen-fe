@@ -6,12 +6,12 @@ import { deleteRestaurant,  toggleStatus } from '../features/restaurants/restaur
 type RestaurantCardType = Pick<RestaurantType, "_id" | "name" | "location" | "path" | "active">
 
 const RestaurantCard = ({ _id, name, location, path, active }: RestaurantCardType) => {
-
   const [restaurantStatus, setStatus] = useState<boolean>(active)
-
   const dispatch =  useAppDispatch()
 
+
   const handleDelete = () => {
+    console.log('attempting delete')
     dispatch(deleteRestaurant(_id as string))
   }
 

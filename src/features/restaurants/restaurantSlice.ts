@@ -5,7 +5,9 @@ import { RestaurantType } from "../../custom";
 export interface RestaurantState {
   restaurants: RestaurantType[];
   loading: "idle" | "pending" | "completed" | "failed";
-  error: string | undefined; /*undefined was initially null, change it to resolve error in the extra reduces rejected case*/
+  error:
+    | string
+    | undefined /*undefined was initially null, change it to resolve error in the extra reduces rejected case*/;
 }
 
 type StatusData = {
@@ -13,7 +15,7 @@ type StatusData = {
   status: boolean;
 };
 
-const BASE_URL = 'http://127.0.0.1:3000/restaurants/'
+const BASE_URL = "http://127.0.0.1:3000/restaurants/";
 
 export const fetchRestaurants = createAsyncThunk(
   "restaurants/fetchRestaurants",
@@ -35,21 +37,23 @@ export const addRestaurant = createAsyncThunk(
       body: JSON.stringify(restaurant),
     });
     const result = await response.json();
-    return result
+    return result;
   }
 );
 
-export const deleteRestaurant = createAsyncThunk('restaurants/deleteRetsuarant', async (id) => {
-  const response = await fetch(`${BASE_URL}${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    }
-  })
-  const result =  await response.json()
-  console.log(result)
-  return result
-})
+export const deleteRestaurant = createAsyncThunk(
+  "restaurants/deleteRetsuarant",
+  async (id: string) => {
+    const response = await fetch(`${BASE_URL}${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    return result.response;
+  }
+);
 
 const initialState: RestaurantState = {
   restaurants: [],
@@ -92,22 +96,21 @@ export const restaurantSlice = createSlice({
       })
       .addCase(fetchRestaurants.rejected, (state, action) => {
         state.loading = "failed";
-        state.error = action.error.message
+        state.error = action.error.message;
       })
       .addCase(addRestaurant.fulfilled, (state, action) => {
-        state.restaurants = [...state.restaurants, action.payload]
+        state.restaurants = [...state.restaurants, action.payload];
       })
       .addCase(deleteRestaurant.fulfilled, (state, action) => {
-        const id = action.payload._id
-        state.restaurants = state.restaurants.filter((restaurant) => restaurant._id !== id)
-      })
+        const id = action.payload._id;
+        state.restaurants = state.restaurants.filter(
+          (restaurant) => restaurant._id !== id
+        );
+      });
   },
 });
 
-export const {
-  updateRestaurant,
-  toggleStatus,
-} = restaurantSlice.actions;
+export const { updateRestaurant, toggleStatus } = restaurantSlice.actions;
 
 export const selectAllRestaurants = (state: RootState) =>
   state.restaurants.restaurants;

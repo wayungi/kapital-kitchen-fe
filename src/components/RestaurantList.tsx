@@ -26,8 +26,8 @@ const RestaurantList = () => {
           name={restaurant.name}
           location={restaurant.location}
           path={restaurant.path}
-          id={restaurant._id}
-          status={restaurant.status}
+          _id={restaurant._id}
+          active={restaurant.active}
         />
       </article>
     ));
