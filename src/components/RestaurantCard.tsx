@@ -44,7 +44,7 @@ const RestaurantCard = ({ _id , name, location, path, active }: RestaurantCardTy
        <div>
         <button onClick={handleDelete}>Delete</button>
         <button onClick={handleUpdate}>Update</button>
-        <button onClick={handleStatus}>Activate</button>
+        <button onClick={handleStatus}>{isActive ? "Deactivate": "Activate" } </button>
        </div>
 
        <div className="w-full bg-slate-500 p-2 my-2 rounded-md text-white text-center">View Menu</div>
