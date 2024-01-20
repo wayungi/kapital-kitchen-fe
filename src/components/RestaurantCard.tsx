@@ -1,27 +1,25 @@
 import { useState } from 'react'
 import { RestaurantType } from '../custom'
 import { useAppDispatch } from '../app/hooks'
-import { deleteRestaurant,  toggleStatus } from '../features/restaurants/restaurantSlice'
+import { deleteRestaurant,  toggleActive } from '../features/restaurants/restaurantSlice'
 
 type RestaurantCardType = Pick<RestaurantType, "_id" | "name" | "location" | "path" | "active">
-
-const RestaurantCard = ({ _id, name, location, path, active }: RestaurantCardType) => {
-  const [restaurantStatus, setStatus] = useState<boolean>(active)
+const RestaurantCard = ({ _id , name, location, path, active }: RestaurantCardType) => {
+  const [isActive, setIsActive] = useState<boolean>(active as boolean)
   const dispatch =  useAppDispatch()
-
 
   const handleDelete = () => {
     console.log('attempting delete')
     dispatch(deleteRestaurant(_id as string))
   }
 
-  
   const handleStatus = () => {
-    setStatus(!restaurantStatus)
-    dispatch(toggleStatus({_id, status: !status}))
+    setIsActive(!isActive)
+    if(_id !== undefined && active !== undefined){
+      dispatch(toggleActive({_id, active: isActive}))
+    }
   }
   const handleUpdate = () => {
-    setStatus(!restaurantStatus)
     dispatch(toggleStatus({_id, status: !status}))
   }
 
@@ -46,7 +44,7 @@ const RestaurantCard = ({ _id, name, location, path, active }: RestaurantCardTyp
        <div>
         <button onClick={handleDelete}>Delete</button>
         <button onClick={handleUpdate}>Update</button>
-        <button onClick={handleStatus}>Activate</button>
+        <button onClick={handleStatus}>{isActive ? "Deactivate": "Activate" } </button>
        </div>
 
        <div className="w-full bg-slate-500 p-2 my-2 rounded-md text-white text-center">View Menu</div>

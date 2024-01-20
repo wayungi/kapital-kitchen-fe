@@ -28,7 +28,6 @@ const NewRestaurant = () => {
           addRestaurant({
             name,
             location,
-            status: "down",
             path: "https://picsum.photos/200",
             contact,
           })

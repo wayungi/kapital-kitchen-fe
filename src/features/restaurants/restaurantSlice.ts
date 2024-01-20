@@ -5,17 +5,32 @@ import { RestaurantType } from "../../custom";
 export interface RestaurantState {
   restaurants: RestaurantType[];
   loading: "idle" | "pending" | "completed" | "failed";
-  error:
-    | string
-    | undefined /*undefined was initially null, change it to resolve error in the extra reduces rejected case*/;
+  error:| string| undefined /*undefined was initially null, change it to resolve error in the extra reduces rejected case*/;
 }
 
-type StatusData = {
-  id: string;
-  status: boolean;
+type ActiveData = {
+  _id: string;
+  active: boolean;
 };
 
 const BASE_URL = "http://127.0.0.1:3000/restaurants/";
+
+export const toggleActive = createAsyncThunk(
+  "restaurants/toggleActivity",
+  async (data: ActiveData) => {
+    const { _id, active } = data;
+    const response = await fetch(`${BASE_URL}activity/${_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ active }),
+    });
+
+    const result =  await response.json()
+    return result.response
+  }
+);
 
 export const fetchRestaurants = createAsyncThunk(
   "restaurants/fetchRestaurants",
@@ -28,7 +43,8 @@ export const fetchRestaurants = createAsyncThunk(
 
 export const addRestaurant = createAsyncThunk(
   "restaurants/addRestaurant",
-  async (restaurant) => {
+  async (restaurant: RestaurantType) => {
+    console.log(restaurant)
     const response = await fetch(`${BASE_URL}`, {
       method: "POST",
       headers: {
@@ -73,16 +89,16 @@ export const restaurantSlice = createSlice({
         ),
       ];
     },
-    toggleStatus: (state, action: PayloadAction<StatusData>) => {
-      const { id, status } = action.payload;
-      const targetRestaurant: RestaurantType | undefined =
-        state.restaurants.find((restaurant) => restaurant.id === id);
-      if (!targetRestaurant) return;
-      state.restaurants = [
-        { ...targetRestaurant, status },
-        ...state.restaurants.filter((restaurant) => restaurant.id !== id),
-      ];
-    },
+    // toggleActive: (state, action: PayloadAction<StatusData>) => {
+    //   const { id, status } = action.payload;
+    //   const targetRestaurant: RestaurantType | undefined =
+    //     state.restaurants.find((restaurant) => restaurant.id === id);
+    //   if (!targetRestaurant) return;
+    //   state.restaurants = [
+    //     { ...targetRestaurant, status },
+    //     ...state.restaurants.filter((restaurant) => restaurant.id !== id),
+    //   ];
+    // },
   },
 
   extraReducers: (builder) => {
@@ -110,7 +126,7 @@ export const restaurantSlice = createSlice({
   },
 });
 
-export const { updateRestaurant, toggleStatus } = restaurantSlice.actions;
+export const { updateRestaurant } = restaurantSlice.actions;
 
 export const selectAllRestaurants = (state: RootState) =>
   state.restaurants.restaurants;
