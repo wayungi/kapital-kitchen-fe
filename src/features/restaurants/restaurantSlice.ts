@@ -37,10 +37,22 @@ export const addRestaurant = createAsyncThunk(
   }
 );
 
+export const deleteRestaurant = createAsyncThunk('restaurants/deleteRetsuarant', async (id) => {
+  const response = await fetch(`http://127.0.0.1:3000/restaurants/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
+  const result =  await response.json()
+  console.log(result)
+  return result
+
+})
+
 const initialState: RestaurantState = {
   restaurants: [],
   loading: "idle",
-  // addRestaurantStatus: "idle",
   error: undefined,
 };
 
@@ -48,12 +60,6 @@ export const restaurantSlice = createSlice({
   name: "restaurant",
   initialState,
   reducers: {
-    // getAllRestaurants: state => {
-    //   state.restaurants
-    //
-    restaurantAdd: (state, action: PayloadAction<RestaurantType>) => {
-      state.restaurants = [...state.restaurants, action.payload];
-    },
     updateRestaurant: (state, action: PayloadAction<RestaurantType>) => {
       state.restaurants = [
         action.payload,
@@ -61,12 +67,6 @@ export const restaurantSlice = createSlice({
           (restaurant) => restaurant.id !== action.payload.id
         ),
       ];
-    },
-    deleteRestaurant: (state, action: PayloadAction<string>) => {
-      console.log(action.payload);
-      state.restaurants = state.restaurants.filter(
-        (restaurant) => restaurant.id !== action.payload
-      );
     },
     toggleStatus: (state, action: PayloadAction<StatusData>) => {
       const { id, status } = action.payload;
@@ -100,10 +100,7 @@ export const restaurantSlice = createSlice({
 });
 
 export const {
-  // getAllRestaurants,
-  // addRestaurant,
   updateRestaurant,
-  deleteRestaurant,
   toggleStatus,
 } = restaurantSlice.actions;
 
