@@ -13,10 +13,12 @@ type StatusData = {
   status: boolean;
 };
 
+const BASE_URL = 'http://127.0.0.1:3000/restaurants/'
+
 export const fetchRestaurants = createAsyncThunk(
   "restaurants/fetchRestaurants",
   async () => {
-    const response = await fetch("http://127.0.0.1:3000/restaurants/");
+    const response = await fetch(`${BASE_URL}`);
     const result = await response.json();
     return result.response;
   }
@@ -25,7 +27,7 @@ export const fetchRestaurants = createAsyncThunk(
 export const addRestaurant = createAsyncThunk(
   "restaurants/addRestaurant",
   async (restaurant) => {
-    const response = await fetch("http://127.0.0.1:3000/restaurants", {
+    const response = await fetch(`${BASE_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,7 +40,7 @@ export const addRestaurant = createAsyncThunk(
 );
 
 export const deleteRestaurant = createAsyncThunk('restaurants/deleteRetsuarant', async (id) => {
-  const response = await fetch(`http://127.0.0.1:3000/restaurants/${id}`, {
+  const response = await fetch(`${BASE_URL}${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -47,7 +49,6 @@ export const deleteRestaurant = createAsyncThunk('restaurants/deleteRetsuarant',
   const result =  await response.json()
   console.log(result)
   return result
-
 })
 
 const initialState: RestaurantState = {
@@ -95,6 +96,10 @@ export const restaurantSlice = createSlice({
       })
       .addCase(addRestaurant.fulfilled, (state, action) => {
         state.restaurants = [...state.restaurants, action.payload]
+      })
+      .addCase(deleteRestaurant.fulfilled, (state, action) => {
+        const id = action.payload._id
+        state.restaurants = state.restaurants.filter((restaurant) => restaurant._id !== id)
       })
   },
 });
