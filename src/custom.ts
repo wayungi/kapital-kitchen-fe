@@ -14,3 +14,10 @@ export type MenuItemType =  {
     price: number,
     restaurantId: string,
 }
+
+export type UserData = {
+    username: string
+    email: string,
+    password: string
+    contact: string
+}
