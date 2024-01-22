@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { RestaurantType } from '../custom'
 import { useAppDispatch } from '../app/hooks'
 import { deleteRestaurant,  toggleActive } from '../features/restaurants/restaurantSlice'
+import { Link } from 'react-router-dom'
 
 type RestaurantCardType = Pick<RestaurantType, "_id" | "name" | "location" | "path" | "active">
-const RestaurantCard = ({ _id , name, location, path, active }: RestaurantCardType) => {
+const RestaurantCard = ({ _id , name, location, path, active}: RestaurantCardType) => {
   const [isActive, setIsActive] = useState<boolean>(active as boolean)
   const dispatch =  useAppDispatch()
 
@@ -18,9 +19,6 @@ const RestaurantCard = ({ _id , name, location, path, active }: RestaurantCardTy
     if(_id !== undefined && active !== undefined){
       dispatch(toggleActive({_id, active: isActive}))
     }
-  }
-  const handleUpdate = () => {
-    dispatch(toggleStatus({_id, status: !status}))
   }
 
   return (
@@ -40,10 +38,9 @@ const RestaurantCard = ({ _id , name, location, path, active }: RestaurantCardTy
       ">
        <h1 className="font-bold">{name}</h1>
        <p className="font-light">{location}</p>
-
        <div>
         <button onClick={handleDelete}>Delete</button>
-        <button onClick={handleUpdate}>Update</button>
+        <Link to={`/update/${_id}`}>Upodate</Link>
         <button onClick={handleStatus}>{isActive ? "Deactivate": "Activate" } </button>
        </div>
 

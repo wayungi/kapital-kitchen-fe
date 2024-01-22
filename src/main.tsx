@@ -20,7 +20,7 @@ import {
   // Link,
 } from "react-router-dom";
 
-// store.dispatch(fetchRestaurants())
+//store.dispatch(fetchRestaurants())
 
 const router = createBrowserRouter([
   {
@@ -37,8 +37,8 @@ const router = createBrowserRouter([
         element: <NewRestaurant />,
       },
       {
-        path: "UpdateRestaurant",
-        element: <UpdateRestaurant id='1'/>,
+        path: '/update/:id',
+        element: <UpdateRestaurant/>,
       },
       {
         path: "RestaurantMenu",

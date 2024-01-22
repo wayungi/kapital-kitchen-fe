@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { RestaurantType } from "../custom";
 import RestaurantCard from "./RestaurantCard";
-import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { selectAllRestaurants, fetchRestaurants } from "../features/restaurants/restaurantSlice";
+import { useAppSelector , useAppDispatch } from "../app/hooks";
+import { selectAllRestaurants , fetchRestaurants } from "../features/restaurants/restaurantSlice";
 
 const RestaurantList = () => {
   const dispatch = useAppDispatch();
