@@ -11,7 +11,7 @@ const UpdateRestaurant = () => {
   const dispatch = useAppDispatch();
   const selectedRestaurant: RestaurantType | undefined = useAppSelector((state) => selectRestaurantById(state, id as string));
 
-  const { _id, name, location, contact, path, active } = selectedRestaurant;
+  const { _id, name, location, contact, path, active } = selectedRestaurant as RestaurantType;
 
   const [contactEdit, setContact] = useState<string>(contact);
   const [file, setFile] = useState<undefined | File>();
