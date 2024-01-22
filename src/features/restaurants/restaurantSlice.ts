@@ -15,6 +15,22 @@ type ActiveData = {
 
 const BASE_URL = "http://127.0.0.1:3000/restaurants/";
 
+export const updateRestaurant = createAsyncThunk(
+  'restaurants/updateRestaurant', 
+  async (data: RestaurantType) => {
+    const {_id } =  data
+  const response = await fetch(`${BASE_URL}${_id}}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ data }),
+  })
+  const result = await response.json()
+  console.log(result.response)
+  return result.response
+})
+
 export const toggleActive = createAsyncThunk(
   "restaurants/toggleActivity",
   async (data: ActiveData) => {
@@ -80,26 +96,7 @@ const initialState: RestaurantState = {
 export const restaurantSlice = createSlice({
   name: "restaurant",
   initialState,
-  reducers: {
-    updateRestaurant: (state, action: PayloadAction<RestaurantType>) => {
-      state.restaurants = [
-        action.payload,
-        ...state.restaurants.filter(
-          (restaurant) => restaurant.id !== action.payload.id
-        ),
-      ];
-    },
-    // toggleActive: (state, action: PayloadAction<StatusData>) => {
-    //   const { id, status } = action.payload;
-    //   const targetRestaurant: RestaurantType | undefined =
-    //     state.restaurants.find((restaurant) => restaurant.id === id);
-    //   if (!targetRestaurant) return;
-    //   state.restaurants = [
-    //     { ...targetRestaurant, status },
-    //     ...state.restaurants.filter((restaurant) => restaurant.id !== id),
-    //   ];
-    // },
-  },
+  reducers: {},
 
   extraReducers: (builder) => {
     builder
@@ -122,15 +119,15 @@ export const restaurantSlice = createSlice({
         state.restaurants = state.restaurants.filter(
           (restaurant) => restaurant._id !== id
         );
-      });
+      })
+      .addCase(updateRestaurant.fulfilled, (state, action) => {
+        const id = action.payload._id
+        state.restaurants = [...state.restaurants.filter((restaurant) => restaurant._id !== id), action.payload]
+        console.log(state.restaurants)
+      })
   },
 });
 
-export const { updateRestaurant } = restaurantSlice.actions;
-
-export const selectAllRestaurants = (state: RootState) =>
-  state.restaurants.restaurants;
-export const selectRestaurantById = (state: RootState, id: string) =>
-  state.restaurants.restaurants.filter((restaurant) => restaurant.id === id)[0];
-
+export const selectAllRestaurants = (state: RootState) => state.restaurants.restaurants;
+export const selectRestaurantById = (state: RootState, id: string) =>  state.restaurants.restaurants.find((restaurant) => restaurant._id === id) 
 export default restaurantSlice.reducer;
