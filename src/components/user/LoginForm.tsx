@@ -7,20 +7,17 @@ const LoginForm = () => {
     username: "",
     password: "",
   });
-  // const [username, setUsername] = useState<string>('')
-  // const [password, setPassword] = useState<string>('')
-  // const isUndefinedOrBlank = [username, password].some(
-  //   (element) => element === ""
-  // );
-
-  const handleLogin = (e: FormEvent<HTMLButtonElement>) => {
+  
+  const isUndefinedOrBlank = Object.values(credentials).some((value) => value === "")
+ 
+  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // if (isUndefinedOrBlank) return;
-    // userLogin({ username, password });
+    if (isUndefinedOrBlank) return;
+    userLogin(credentials);
   };
 
   return (
-    <form>
+    <form onSubmit={(e) => handleLogin(e)}>
       <h1>Login From</h1>
       <div>
         <input
@@ -39,9 +36,7 @@ const LoginForm = () => {
           value={credentials.password}
         />
         <br />
-        <button type="submit" onClick={(e) => handleLogin(e)}>
-          Login
-        </button>
+        <button type="submit">Login</button>
       </div>
     </form>
   );
