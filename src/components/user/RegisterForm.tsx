@@ -2,7 +2,7 @@ import {useState, ChangeEvent, FormEvent} from 'react'
 import { userRegister } from './UserSlice'
 
 
-const RegisterFrom = () => {
+const RegisterForm = () => {
 
     const [email, setEmail] = useState<string>('')
     const [username, setUsername] = useState<string>('')
@@ -36,4 +36,4 @@ const RegisterFrom = () => {
   )
 }
 
-export default RegisterFrom
+export default RegisterForm

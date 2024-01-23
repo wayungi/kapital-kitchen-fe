@@ -4,7 +4,8 @@ import App from './App.tsx'
 import './index.css'
 import store from './app/store'
 import { Provider } from 'react-redux'
-import RegisterFrom from './components/user/RegisterFrom.tsx'
+import RegisterFrom from './components/user/RegisterForm.tsx'
+import LoginForm from './components/user/LoginForm.tsx'
 
 import RestaurantList from "./components/RestaurantList"
 import NewRestaurant from "./components/NewRestaurant"
