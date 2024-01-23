@@ -1,9 +1,9 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
 import { UserData } from "../../custom"
 
 const BASE_URL = 'http://127.0.0.1:3000'
 
-export const registerUser => createAsyncThunk("users/registerUser", async (userData: UserData) => {
+export const registerUser =  async (userData: UserData) => {
+    console.log(userData)
     const response =  await fetch(`${BASE_URL}/register`, {
         method: "POST",
         headers: {
@@ -12,6 +12,8 @@ export const registerUser => createAsyncThunk("users/registerUser", async (userD
         body: JSON.stringify(userData)
     })
     const user =  await response.json()
-    console.log(user)
+    // console.log(user)
     return user
-})
+}
+
+

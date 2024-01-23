@@ -4,8 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import store from './app/store'
 import { Provider } from 'react-redux'
-import { fetchRestaurants } from './features/restaurants/restaurantSlice.ts'
-
+import RegisterFrom from './components/user/RegisterFrom.tsx'
 
 import RestaurantList from "./components/RestaurantList"
 import NewRestaurant from "./components/NewRestaurant"
@@ -20,7 +19,6 @@ import {
   // Link,
 } from "react-router-dom";
 
-//store.dispatch(fetchRestaurants())
 
 const router = createBrowserRouter([
   {
@@ -44,6 +42,10 @@ const router = createBrowserRouter([
         path: "RestaurantMenu",
         element: <RestaurantMenu  id="1"/>,
       },
+      {
+        path: "/register",
+        element: <RegisterFrom />
+      }
     ]
   },
   
