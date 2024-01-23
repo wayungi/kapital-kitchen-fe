@@ -2,7 +2,7 @@ import {useState, ChangeEvent, FormEvent} from 'react'
 import { userLogin } from './UserSlice'
 
 
-const LoginFrom = () => {
+const LoginForm = () => {
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const isUndefinedOrBlank = [username, password].some((element) => element === '')
@@ -27,4 +27,4 @@ const LoginFrom = () => {
   )
 }
 
-export default LoginFrom
+export default LoginForm
