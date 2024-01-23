@@ -22,7 +22,7 @@ export type UserData = {
     contact: string
 }
 
-export type Credentails = {
+export type Credentials = {
     username: string,
     password: string
 }
