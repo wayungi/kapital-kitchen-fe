@@ -21,7 +21,7 @@ const LoginForm = () => {
         <div>
             <input type='text' placeholder='Username' onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} value={username}/><br />
             <input type='text' placeholder='Password' onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} value={password}/><br />
-            <button type='submit' onClick={ (e) => handleLogin(e) }>Register</button>
+            <button type='submit' onClick={ (e) => handleLogin(e) }>Login</button>
         </div>
     </form>
   )

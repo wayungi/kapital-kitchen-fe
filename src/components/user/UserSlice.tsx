@@ -22,8 +22,10 @@ export const userLogin =  async (userCredentials: Credentails) => {
         },
         body: JSON.stringify(userCredentials)
     })
-    const userInfo =  await response.json()
-    return userInfo
+    if(!response) console.log("more learning") 
+    const accessToken =  await response.json()
+    console.log(accessToken)
+    return accessToken
 }
 
 

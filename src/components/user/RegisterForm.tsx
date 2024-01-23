@@ -14,7 +14,6 @@ const RegisterForm = () => {
 
     const handleRegister = (e: FormEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        console.log("handling registration")
         if (isUndefinedOrBlank ) return 
         userRegister({ email, username, password, contact })
     }
