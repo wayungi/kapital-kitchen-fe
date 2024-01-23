@@ -1,5 +1,5 @@
 import {useState, ChangeEvent, FormEvent} from 'react'
-import { registerUser } from './UserSlice'
+import { userRegister } from './UserSlice'
 
 
 const RegisterFrom = () => {
@@ -16,7 +16,7 @@ const RegisterFrom = () => {
         e.preventDefault()
         console.log("handling registration")
         if (isUndefinedOrBlank ) return 
-        registerUser({ email, username, password, contact })
+        userRegister({ email, username, password, contact })
     }
 
 

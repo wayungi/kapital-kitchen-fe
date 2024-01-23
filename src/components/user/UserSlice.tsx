@@ -2,8 +2,7 @@ import { UserData } from "../../custom"
 
 const BASE_URL = 'http://127.0.0.1:3000'
 
-export const registerUser =  async (userData: UserData) => {
-    console.log(userData)
+export const userRegister =  async (userData: UserData) => {
     const response =  await fetch(`${BASE_URL}/register`, {
         method: "POST",
         headers: {
@@ -12,8 +11,11 @@ export const registerUser =  async (userData: UserData) => {
         body: JSON.stringify(userData)
     })
     const user =  await response.json()
-    // console.log(user)
     return user
+}
+
+export const userLogin =  async (loginCredentails) => {
+    
 }
 
 
