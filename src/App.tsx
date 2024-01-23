@@ -6,7 +6,8 @@ function App() {
     <main className="p-1 h-screen">
       {/* header section */}
       <div>
-        <Link to={`/register`}>Register</Link>
+        <Link to={`/register`}>Register</Link><br />
+        <Link to={'/login'}>Login</Link>
       </div>
       {/* main nav */}
       <div>
