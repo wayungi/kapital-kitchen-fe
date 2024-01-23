@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Logout from "./components/user/Logout";
 
 function App() {
   return (
@@ -7,7 +8,8 @@ function App() {
       {/* header section */}
       <div>
         <Link to={`/register`}>Register</Link><br />
-        <Link to={'/login'}>Login</Link>
+        <Link to={'/login'}>Login</Link><br />
+        <Logout />
       </div>
       {/* main nav */}
       <div>
