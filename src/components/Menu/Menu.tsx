@@ -5,7 +5,6 @@ type MenuProp = {
   menuItemList: MenuItemType[]
 }
 
-
 const Menu = ({menuItemList} : MenuProp) => {
   const menuItemDisplay = menuItemList.map((menuItem) => <MenuItem menuData={menuItem} />)
   return (

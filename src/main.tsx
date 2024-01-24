@@ -10,7 +10,10 @@ import LoginForm from "./components/user/LoginForm.tsx";
 import RestaurantList from "./components/Restaurant/RestaurantList";
 import NewRestaurant from "./components/Restaurant/NewRestaurant.tsx";
 import UpdateRestaurant from "./components/Restaurant/UpdateRestaurant";
-import RestaurantMenu from "./components/Restaurant/RestaurantMenu";
+
+import RestaurantMenu from "./components/Menu/RestaurantMenu.tsx";
+import AddMenu from "./components/Menu/AddMenu.tsx";
+
 import ErrorPage from "./components/ErrorPage.tsx";
 
 import {
@@ -27,7 +30,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/restaurantList",
+        path: "/restaurants",
         element: <RestaurantList />,
       },
       {
@@ -39,10 +42,6 @@ const router = createBrowserRouter([
         element: <UpdateRestaurant />,
       },
       {
-        path: "RestaurantMenu",
-        element: <RestaurantMenu id="1" />,
-      },
-      {
         path: "/register",
         element: <RegisterFrom />,
       },
@@ -50,6 +49,17 @@ const router = createBrowserRouter([
         path: "/login",
         element: <LoginForm />,
       },
+
+      /*menu links*/
+      {
+        path: "/restaurants/menu/:id",
+        element: <RestaurantMenu id="1" />,
+      },
+      {
+        path: "/restaurants/:name/:id",
+        element: <AddMenu />,
+      },
+      
     ],
   },
 ]);
