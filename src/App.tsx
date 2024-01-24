@@ -14,7 +14,7 @@ function App() {
       {/* main nav */}
       <div>
         <ul>
-          <li><Link to={`/restaurantList`}>Get All restaurants</Link></li>
+          <li><Link to={`/restaurants`}>Get All restaurants </Link></li>
           <li><Link to={`/newRestaurant`}>post a restaurant</Link></li>
         </ul>
       </div>

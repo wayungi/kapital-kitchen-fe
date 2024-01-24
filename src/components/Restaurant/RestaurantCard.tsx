@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { RestaurantType } from '../custom'
-import { useAppDispatch } from '../app/hooks'
-import { deleteRestaurant,  toggleActive } from '../features/restaurants/restaurantSlice'
+import { RestaurantType } from '../../custom'
+import { useAppDispatch } from '../../app/hooks'
+import { deleteRestaurant,  toggleActive } from '../../features/restaurants/restaurantSlice'
 import { Link } from 'react-router-dom'
 
 type RestaurantCardType = Pick<RestaurantType, "_id" | "name" | "location" | "path" | "active">
@@ -44,7 +44,8 @@ const RestaurantCard = ({ _id , name, location, path, active}: RestaurantCardTyp
         <button onClick={handleStatus}>{isActive ? "Deactivate": "Activate" } </button>
        </div>
 
-       <div className="w-full bg-slate-500 p-2 my-2 rounded-md text-white text-center">View Menu</div>
+       <Link to={`/restaurants/menu/${_id}`}>View Menu</Link>
+       <Link to={`/restaurants/${name}/${_id}`}>Add Menu</Link>
       </div>
     </>
   )

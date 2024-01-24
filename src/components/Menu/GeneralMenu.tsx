@@ -1,5 +1,5 @@
-import { useAppSelector } from "../app/hooks"
-import { selectAllMenuItems } from "../features/menu/menuSlice"
+import { useAppSelector } from "../../app/hooks"
+import { selectAllMenuItems } from "../../features/menu/menuSlice"
 import Menu from './Menu'
 
 

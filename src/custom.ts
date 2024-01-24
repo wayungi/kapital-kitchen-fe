@@ -8,11 +8,13 @@ export type RestaurantType =  {
 }
 
 export type MenuItemType =  {
-    id: string,
+    _id?: string,
     name: string,
     path: string,
     price: number,
-    restaurantId: string,
+    restaurantName: string | undefined,
+    restaurantId: string | undefined,
+    desc: string
 }
 
 export type UserData = {
