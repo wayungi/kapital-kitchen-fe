@@ -1,6 +1,6 @@
-import { useAppSelector } from "../app/hooks"
-import { selectRestaurantMenu } from "../features/menu/menuSlice"
-import Menu from "./Menu"
+import { useAppSelector } from "../../app/hooks"
+import { selectRestaurantMenu } from "../../features/menu/menuSlice"
+import Menu from "../Menu/Menu"
 
 type RestaurantMenuProp = {
     id: string

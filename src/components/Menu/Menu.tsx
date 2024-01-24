@@ -1,5 +1,5 @@
-import { MenuItemType } from "../custom"
-import MenuItem from "./partials/MenuItem"
+import { MenuItemType } from "../../custom"
+import MenuItem from "../partials/MenuItem"
 
 type MenuProp = {
   menuItemList: MenuItemType[]

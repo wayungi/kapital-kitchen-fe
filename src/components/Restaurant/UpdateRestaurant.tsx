@@ -1,10 +1,10 @@
-import { useState, useMemo, ChangeEvent, FormEvent, MouseEvent } from "react";
+import { useState, ChangeEvent, MouseEvent } from "react";
 import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { selectRestaurantById } from "../features/restaurants/restaurantSlice";
-import { updateRestaurant } from "../features/restaurants/restaurantSlice";
-import ImagePreview from "./partials/ImagePreview";
- import { RestaurantType } from "../custom";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectRestaurantById } from "../../features/restaurants/restaurantSlice";
+import { updateRestaurant } from "../../features/restaurants/restaurantSlice";
+import ImagePreview from "../partials/ImagePreview";
+ import { RestaurantType } from "../../custom";
 
 const UpdateRestaurant = () => {
   const { id } = useParams();

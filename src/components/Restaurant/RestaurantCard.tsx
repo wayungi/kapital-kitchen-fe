@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { RestaurantType } from '../custom'
-import { useAppDispatch } from '../app/hooks'
-import { deleteRestaurant,  toggleActive } from '../features/restaurants/restaurantSlice'
+import { RestaurantType } from '../../custom'
+import { useAppDispatch } from '../../app/hooks'
+import { deleteRestaurant,  toggleActive } from '../../features/restaurants/restaurantSlice'
 import { Link } from 'react-router-dom'
 
 type RestaurantCardType = Pick<RestaurantType, "_id" | "name" | "location" | "path" | "active">

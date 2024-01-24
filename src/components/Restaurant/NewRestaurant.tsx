@@ -1,7 +1,7 @@
 import { ChangeEvent, MouseEvent, useState } from "react";
-import { useAppDispatch } from "../app/hooks";
-import { addRestaurant } from "../features/restaurants/restaurantSlice";
-import ImagePreview from "./partials/ImagePreview";
+import { useAppDispatch } from "../../app/hooks";
+import { addRestaurant } from "../../features/restaurants/restaurantSlice";
+import ImagePreview from "../partials/ImagePreview";
 
 const NewRestaurant = () => {
   const dispatch = useAppDispatch();
