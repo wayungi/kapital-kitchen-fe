@@ -12,7 +12,9 @@ import NewRestaurant from "./components/Restaurant/NewRestaurant.tsx";
 import UpdateRestaurant from "./components/Restaurant/UpdateRestaurant";
 
 import RestaurantMenu from "./components/Menu/RestaurantMenu.tsx";
+import SpecificRestaurantMenu from "./components/Menu/SpecificRestaurantMenu.tsx";
 import AddMenu from "./components/Menu/AddMenu.tsx";
+import { fetchMenu } from "./features/menu/menuSlice.ts";
 
 import ErrorPage from "./components/ErrorPage.tsx";
 
@@ -22,6 +24,8 @@ import {
   // Route,
   // Link,
 } from "react-router-dom";
+
+store.dispatch(fetchMenu());
 
 const router = createBrowserRouter([
   {
@@ -53,13 +57,12 @@ const router = createBrowserRouter([
       /*menu links*/
       {
         path: "/restaurants/menu/:id",
-        element: <RestaurantMenu id="1" />,
+        element: <SpecificRestaurantMenu />,
       },
       {
         path: "/restaurants/:name/:id",
         element: <AddMenu />,
       },
-      
     ],
   },
 ]);
@@ -68,7 +71,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
-      {/* <App /> */}
     </Provider>
   </React.StrictMode>
 );
