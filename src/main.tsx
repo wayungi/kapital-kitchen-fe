@@ -14,6 +14,7 @@ import UpdateRestaurant from "./components/Restaurant/UpdateRestaurant";
 import RestaurantMenu from "./components/Menu/RestaurantMenu.tsx";
 import SpecificRestaurantMenu from "./components/Menu/SpecificRestaurantMenu.tsx";
 import AddMenu from "./components/Menu/AddMenu.tsx";
+import EditMenu from "./components/Menu/EditMenu.tsx";
 import { fetchMenu } from "./features/menu/menuSlice.ts";
 
 import ErrorPage from "./components/ErrorPage.tsx";
@@ -60,9 +61,14 @@ const router = createBrowserRouter([
         element: <SpecificRestaurantMenu />,
       },
       {
+        path: "/restaurants/menu/edit:id",
+        element: <EditMenu />,
+      },
+      {
         path: "/restaurants/:name/:id",
         element: <AddMenu />,
       },
+     
     ],
   },
 ]);
