@@ -46,7 +46,6 @@ export const fetchMenu = createAsyncThunk("menu/fetchmenu", async () => {
 export const saveMenu = createAsyncThunk(
   "menu/saveMenu",
   async (menuItem: MenuItemType) => {
-    console.log(menuItem);
     try {
       const response = await fetch(`${BASE_URL}/menu`, {
         ...postHeader,
@@ -62,12 +61,12 @@ export const saveMenu = createAsyncThunk(
 
 export const deleteMenuItem = createAsyncThunk("menu/deleteMenuItem", async(id: string) => {
   try {
-    const response = await fetch(`${BASE_URL}//menu/${id}`, {
+    const response = await fetch(`${BASE_URL}/menu/${id}`, {
       ...deleteHeader,
     })
     if(!response) return 
-    const result =  response.json()
-    return result
+    const result =  await response.json()
+    return result.response
   }catch(err) {
     console.log(err)
   }
@@ -109,6 +108,10 @@ export const menuSlice = createSlice({
   .addCase(fetchMenu.rejected, (state, action) => {
     state.error = action.error.message
     state.loading = "failed"
+  })
+  .addCase(deleteMenuItem.fulfilled, (state, action) => {
+    console.log(action.payload)
+    state.menuItems =  state.menuItems.filter((item) => item._id !== action.payload._id)
   })
 
   
