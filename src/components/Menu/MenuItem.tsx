@@ -11,9 +11,7 @@ const MenuItem = ({menuData}: MenuItemProps) => {
     const dispatch = useAppDispatch()
     const [readOnly, setReadOnly] = useState<boolean>(true)
     const [menuObj, setMenuObj] = useState<MenuItemType>({...menuData})
-
     const [canAddToOrder, setCanAddToOrder] = useState<boolean>(true)
-
     
     const handleDelete = () => {
         const id = menuObj._id
