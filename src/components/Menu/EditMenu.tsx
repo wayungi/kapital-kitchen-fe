@@ -1,20 +1,15 @@
 import { useState, FormEvent } from "react";
 import { useParams } from "react-router-dom";
 import { MenuItemType } from "../../custom";
-import { saveMenu } from "../../features/menu/menuSlice";
-import { useAppDispatch } from "../../app/hooks";
+import { updateMenuItem , selectMenuItem} from "../../features/menu/menuSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 const EditMenu = () => {
-  const { id, name } = useParams();
+  const { id } = useParams();
   const dispatch = useAppDispatch()
-  const [menuItem, setMenuItem] = useState<MenuItemType>({
-    restaurantId: id,
-    name: "",
-    price: 0,
-    restaurantName: name,
-    path: "https://picsum.photos/200",
-    desc: "",
-  });
+  const selectedMenuItem = useAppSelector((state) => selectMenuItem(state, id as string))
+  const [menuItem, setMenuItem] = useState<MenuItemType>({...selectedMenuItem as MenuItemType});
+
   const canSave = Object.values(menuItem).every(
     (value) => value !== "" && menuItem.price !== 0
   );
@@ -22,12 +17,12 @@ const EditMenu = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!canSave) return;
-    dispatch(saveMenu(menuItem));
+    dispatch(updateMenuItem(menuItem));
   };
 
   return (
     <section>
-      <h1>Add Menu</h1>
+      <h1>Update menu Item</h1>
 
       <form onSubmit={handleSubmit}>
         <div>
