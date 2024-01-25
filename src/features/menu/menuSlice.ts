@@ -72,6 +72,23 @@ export const deleteMenuItem = createAsyncThunk("menu/deleteMenuItem", async(id: 
   }
 })
 
+export const updateMenuItem = createAsyncThunk('menu/updateMenuItem', async(menuItem: MenuItemType) => {
+  try {
+  const response = await fetch(`${BASE_URL}/menu/${menuItem._id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(menuItem)
+  })
+  if(!response) return
+  const result =  await response.json()
+  return result.response
+  }catch(err) {
+    console.log(err)
+  }
+})
+
 const initialState: MenuState = {
   menuItems: [],
   loading: "idle",
@@ -89,12 +106,12 @@ export const menuSlice = createSlice({
     addMenuItem: (state, action: PayloadAction<MenuItemType>) => {
       state.menuItems = [...state.menuItems, action.payload];
     },
-    updateMenuItem: (state, action: PayloadAction<MenuItemType>) => {
-      state.menuItems = [
-        action.payload,
-        ...state.menuItems.filter((item) => item.id !== action.payload.id),
-      ];
-    },
+    // updateMenuItem: (state, action: PayloadAction<MenuItemType>) => {
+    //   state.menuItems = [
+    //     action.payload,
+    //     ...state.menuItems.filter((item) => item.id !== action.payload.id),
+    //   ];
+    // },
   },
   extraReducers: (builder) => 
   builder
@@ -117,9 +134,8 @@ export const menuSlice = createSlice({
   
 });
 
-export const { getMenuItems, addMenuItem, updateMenuItem } = menuSlice.actions;
+export const { getMenuItems, addMenuItem } = menuSlice.actions;
 export const selectAllMenuItems = (state: RootState) => state.menuItems.menuItems;
-export const selectRestaurantMenu = (state: RootState, id: string) =>
-  state.menuItems.menuItems.filter((menu) => menu.restaurantId === id);
-
+export const selectRestaurantMenu = (state: RootState, id: string) => state.menuItems.menuItems.filter((menu) => menu.restaurantId === id);
+export const selectMenuItem = (state: RootState, menuId: string) => state.menuItems.menuItems.find((menu) => menu._id === menuId)
 export default menuSlice.reducer;

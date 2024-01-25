@@ -2,6 +2,7 @@ import { useState, ChangeEvent } from "react"
 import { MenuItemType } from "../../custom"
 import { useAppDispatch } from "../../app/hooks"
 import { deleteMenuItem, updateMenuItem } from "../../features/menu/menuSlice"
+import { Link } from "react-router-dom"
 
 type MenuItemProps = {
     menuData: MenuItemType
@@ -16,10 +17,6 @@ const MenuItem = ({menuData}: MenuItemProps) => {
     const handleDelete = () => {
         const id = menuObj._id
         dispatch(deleteMenuItem(id as string))
-    }
-
-    const handleEdit = () => {
-        setReadOnly(false)
     }
 
     const handleSave = () => {
@@ -59,7 +56,7 @@ const MenuItem = ({menuData}: MenuItemProps) => {
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setMenuObj({...menuObj, [e.target.name]: e.target.value})}/>
             <div>
                 <button onClick={handleDelete}>Delete</button> {/* avaialable for admins/ restaurant owners*/}
-                { readOnly ? <button onClick={handleEdit}>Edit</button> : <button onClick={handleSave}>Save</button> }
+                <Link to={`/restaurants/menu/edit/${menuObj._id}`}>Edit</Link>
                 { canAddToOrder ? <button onClick={() => setCanAddToOrder(false)}>Add to Order</button> : 
                 <button onClick={() => setCanAddToOrder(true)}>Remove from Order</button> }
             </div>
