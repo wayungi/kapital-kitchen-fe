@@ -10,23 +10,44 @@ const postHeader = {
   },
 };
 
+const getHeader = {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
+
 export interface MenuState {
   menuItems: MenuItemType[];
+  loading: "idle" | "pending" | "completed" | "failed";
+  error: undefined| string/*undefined was initially null, change it to resolve error in the extra reduces rejected case*/;
 }
+
+
+export const fetchMenu = createAsyncThunk("menu/fetchmenu", async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/menu`, {
+      ...getHeader,
+    });
+    if (!response.ok) return;
+    const result = await response.json();
+    return result
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 export const saveMenu = createAsyncThunk(
   "menu/saveMenu",
   async (menuItem: MenuItemType) => {
-    console.log(menuItem)
+    console.log(menuItem);
     try {
       const response = await fetch(`${BASE_URL}/menu`, {
         ...postHeader,
         body: JSON.stringify(menuItem),
       });
-      // console.log(response)
-      const result =  await response.json()
-      // console.log(result)
-      return result
+      const result = await response.json();
+git       return result;
     } catch (err) {
       console.log(err);
     }
@@ -34,37 +55,11 @@ export const saveMenu = createAsyncThunk(
 );
 
 const initialState: MenuState = {
-  menuItems: [
-    {
-      id: "1",
-      restaurantId: "1",
-      name: "Drum sticks",
-      price: 15000,
-      path: "https://picsum.photos/200",
-    },
-    {
-      id: "2",
-      restaurantId: "1",
-      name: "Pork Ribs",
-      price: 25000,
-      path: "https://picsum.photos/200",
-    },
-    {
-      id: "3",
-      restaurantId: "2",
-      name: "Gum bald",
-      price: 1000,
-      path: "https://picsum.photos/200",
-    },
-    {
-      id: "4",
-      restaurantId: "4",
-      name: "Chips",
-      price: 9000,
-      path: "https://picsum.photos/200",
-    },
-  ],
-};
+  menuItems: [],
+  loading: "idle",
+  error: ""
+}
+
 
 export const menuSlice = createSlice({
   name: "menuItems",
@@ -88,13 +83,25 @@ export const menuSlice = createSlice({
       );
     },
   },
+  extraReducers: (builder) => 
+  builder
+  .addCase(fetchMenu.pending, (state) => {
+    state.loading = "pending"
+  })
+  .addCase(fetchMenu.fulfilled, (state, action) => {
+    state.loading = "completed"
+    state.menuItems = [...action.payload]
+  })
+  .addCase(fetchMenu.rejected, (state, action) => {
+    state.error = action.error.message
+    state.loading = "failed"
+  })
+
+  
 });
 
-export const { getMenuItems, addMenuItem, updateMenuItem, deleteMenuItem } =
-  menuSlice.actions;
-
-export const selectAllMenuItems = (state: RootState) =>
-  state.menuItems.menuItems;
+export const { getMenuItems, addMenuItem, updateMenuItem, deleteMenuItem } = menuSlice.actions;
+export const selectAllMenuItems = (state: RootState) => state.menuItems.menuItems;
 export const selectRestaurantMenu = (state: RootState, id: string) =>
   state.menuItems.menuItems.filter((menu) => menu.restaurantId === id);
 

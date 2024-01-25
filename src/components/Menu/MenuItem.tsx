@@ -10,14 +10,14 @@ type MenuItemProps = {
 const MenuItem = ({menuData}: MenuItemProps) => {
     const dispatch = useAppDispatch()
     const [readOnly, setReadOnly] = useState<boolean>(true)
-    const { id, name, path, price } = menuData
-    const [menuItemName, setMenuItemName] = useState(name)
-    const [menuItemPrice, setMenuItemPrice] = useState(price.toString())
+    const [menuObj, setMenuObj] = useState<MenuItemType>({...menuData})
+
     const [canAddToOrder, setCanAddToOrder] = useState<boolean>(true)
 
     
     const handleDelete = () => {
-        dispatch(deleteMenuItem(id))
+        const id = menuObj._id
+        dispatch(deleteMenuItem(id as string))
     }
 
     const handleEdit = () => {
@@ -44,19 +44,21 @@ const MenuItem = ({menuData}: MenuItemProps) => {
   return (
     <div>
         <div>
-            <img src={path} alt={name} />
+            <img src={menuObj.path} alt={menuObj.name} />
         </div>
         <div>
             <input 
                 type="text" 
-                value= {menuItemName} 
+                value= {menuObj.name} 
+                name="name"
                 readOnly={readOnly}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setMenuItemName(e.target.value)}/>
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setMenuObj({...menuObj, [e.target.name]: e.target.value})}/>
             <input
                 type="text"
-                value={menuItemPrice}
+                value={menuObj.price}
+                name="price"
                 readOnly={readOnly}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setMenuItemPrice(e.target.value)}/>
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setMenuObj({...menuObj, [e.target.name]: e.target.value})}/>
             <div>
                 <button onClick={handleDelete}>Delete</button> {/* avaialable for admins/ restaurant owners*/}
                 { readOnly ? <button onClick={handleEdit}>Edit</button> : <button onClick={handleSave}>Save</button> }
