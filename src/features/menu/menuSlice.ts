@@ -17,6 +17,12 @@ const getHeader = {
   },
 };
 
+const deleteHeader = {
+  method: "DELETE",
+  header: {
+    "Content-Type": "application/json",  }
+}
+
 export interface MenuState {
   menuItems: MenuItemType[];
   loading: "idle" | "pending" | "completed" | "failed";
@@ -47,12 +53,25 @@ export const saveMenu = createAsyncThunk(
         body: JSON.stringify(menuItem),
       });
       const result = await response.json();
-git       return result;
+      return result;
     } catch (err) {
       console.log(err);
     }
   }
 );
+
+export const deleteMenuItem = createAsyncThunk("menu/deleteMenuItem", async(id: string) => {
+  try {
+    const response = await fetch(`${BASE_URL}//menu/${id}`, {
+      ...deleteHeader,
+    })
+    if(!response) return 
+    const result =  response.json()
+    return result
+  }catch(err) {
+    console.log(err)
+  }
+})
 
 const initialState: MenuState = {
   menuItems: [],
@@ -77,11 +96,6 @@ export const menuSlice = createSlice({
         ...state.menuItems.filter((item) => item.id !== action.payload.id),
       ];
     },
-    deleteMenuItem: (state, action: PayloadAction<string>) => {
-      state.menuItems = state.menuItems.filter(
-        (item) => item.id !== action.payload
-      );
-    },
   },
   extraReducers: (builder) => 
   builder
@@ -100,7 +114,7 @@ export const menuSlice = createSlice({
   
 });
 
-export const { getMenuItems, addMenuItem, updateMenuItem, deleteMenuItem } = menuSlice.actions;
+export const { getMenuItems, addMenuItem, updateMenuItem } = menuSlice.actions;
 export const selectAllMenuItems = (state: RootState) => state.menuItems.menuItems;
 export const selectRestaurantMenu = (state: RootState, id: string) =>
   state.menuItems.menuItems.filter((menu) => menu.restaurantId === id);
