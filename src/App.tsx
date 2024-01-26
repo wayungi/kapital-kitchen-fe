@@ -16,6 +16,8 @@ function App() {
         <ul>
           <li><Link to={`/restaurants`}>Get All restaurants </Link></li>
           <li><Link to={`/newRestaurant`}>post a restaurant</Link></li>
+          <li><Link to={`/cart`}>Cart</Link></li>
+
         </ul>
       </div>
       {/* main content display area */}
