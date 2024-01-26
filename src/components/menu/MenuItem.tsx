@@ -2,7 +2,7 @@ import { useState, ChangeEvent } from "react"
 import { MenuItemType, CartType } from "../../custom"
 import { useAppDispatch } from "../../app/hooks"
 import { deleteMenuItem, /*updateMenuItem*/ } from "../../features/menu/menuSlice"
-import { addItemToCart } from "../../features/cart/cartSlice"
+import { addItemToCart, removeItemFromCart } from "../../features/cart/cartSlice"
 import { Link } from "react-router-dom"
 
 type MenuItemProps = {
@@ -35,7 +35,7 @@ const MenuItem = ({menuData}: MenuItemProps) => {
     }
 
     const removeFromCart = () => {
-
+        dispatch(removeItemFromCart({ menuId:menuData._id }))
     }
 
     // const handleSave = () => {
