@@ -112,12 +112,10 @@ export const cartSlice = createSlice({
         return orderItem
       })      
     },
-    // updateMenuItem: (state, action: PayloadAction<MenuItemType>) => {
-    //   state.menuItems = [
-    //     action.payload,
-    //     ...state.menuItems.filter((item) => item.id !== action.payload.id),
-    //   ];
-    // },
+    removeItemFromCart: (state, action) => {
+      const { menuId } = action.payload
+      state.orderList = state.orderList.filter((orderItem) => orderItem.menuId !== menuId)
+    },
   },
   extraReducers: (builder) => 
   builder
@@ -140,7 +138,7 @@ export const cartSlice = createSlice({
   
 });
 
-export const { addItemToCart,  updateQuantity } = cartSlice.actions;
+export const { addItemToCart,  updateQuantity, removeItemFromCart } = cartSlice.actions;
 export const selectCartItems = (state: RootState) => state.cartItems.orderList;
 // export const selectRestaurantMenu = (state: RootState, id: string) => state.menuItems.menuItems.filter((menu) => menu.restaurantId === id);
 // export const selectMenuItem = (state: RootState, menuId: string) => state.menuItems.menuItems.find((menu) => menu._id === menuId)
