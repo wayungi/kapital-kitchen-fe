@@ -7,14 +7,14 @@ import { Provider } from "react-redux";
 import RegisterFrom from "./components/user/RegisterForm.tsx";
 import LoginForm from "./components/user/LoginForm.tsx";
 
-import RestaurantList from "./components/Restaurant/RestaurantList";
-import NewRestaurant from "./components/Restaurant/NewRestaurant.tsx";
-import UpdateRestaurant from "./components/Restaurant/UpdateRestaurant";
+import RestaurantList from "./components/restaurant/RestaurantList.tsx";
+import NewRestaurant from "./components/restaurant/NewRestaurant.tsx";
+import UpdateRestaurant from "./components/restaurant/UpdateRestaurant.tsx";
 
-import RestaurantMenu from "./components/Menu/RestaurantMenu.tsx";
-import SpecificRestaurantMenu from "./components/Menu/SpecificRestaurantMenu.tsx";
-import AddMenu from "./components/Menu/AddMenu.tsx";
-import EditMenu from "./components/Menu/EditMenu.tsx";
+import RestaurantMenu from "./components/menu/RestaurantMenu.tsx";
+import SpecificRestaurantMenu from "./components/menu/SpecificRestaurantMenu.tsx";
+import AddMenu from "./components/menu/AddMenu.tsx";
+import EditMenu from "./components/menu/EditMenu.tsx";
 import { fetchMenu } from "./features/menu/menuSlice.ts";
 
 import ErrorPage from "./components/ErrorPage.tsx";
@@ -25,6 +25,7 @@ import {
   // Route,
   // Link,
 } from "react-router-dom";
+import Cart from "./components/cart/Cart.tsx";
 
 store.dispatch(fetchMenu());
 
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
         path: "/restaurants/:name/:id",
         element: <AddMenu />,
       },
+      {
+        path: "/cart",
+        element: <Cart />
+      }
      
     ],
   },
