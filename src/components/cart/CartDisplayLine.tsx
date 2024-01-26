@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { CartType } from "../../custom"
-import { updateQuantity } from '../../features/cart/cartSlice'
+import { updateQuantity, removeItemFromCart  } from '../../features/cart/cartSlice'
 import { useAppDispatch } from '../../app/hooks'
 
 type cartDisplayLineProp = {
@@ -19,7 +19,7 @@ const CartDisplayLine = ({ orderObject }:  cartDisplayLineProp ) => {
 
     return (
         <>
-            <div>{path}</div>
+            <div><img src={path} alt={name} /></div>
             <div>{name}</div>
             <div> 
                 <button onClick={ () => setAlteredQuantity((prev) => prev === 1 ? 1 : prev - 1) }>-</button> 
@@ -28,6 +28,9 @@ const CartDisplayLine = ({ orderObject }:  cartDisplayLineProp ) => {
             <div>{price}</div>
             <div>{quantity * price}</div>
             <div>{restaurant}</div>
+            <div>
+                <button onClick={ () => dispatch(removeItemFromCart({menuId}))}>x</button>
+            </div>
         </>
     )
 
