@@ -28,3 +28,12 @@ export type Credentials = {
     username: string,
     password: string
 }
+
+export type CartType = {
+    name: string,
+    quantity: number,
+    price: number,
+    amount:number,
+    restaurant: string,
+    menuId: "string"
+}
