@@ -6,11 +6,8 @@ import CartDisplayLine from './CartDisplayLine'
 
 const Cart = () => {
     const cartList = useAppSelector((state) => selectCartItems(state))
-    //const [cartItems, setCartItems] =  useState<CartType[] | undefined>(cartList) 
-
     const cart = cartList.map((orderObj) => <CartDisplayLine orderObject={orderObj} />)
       
-
     return (
         <section>
             <h1>{cart}</h1>
