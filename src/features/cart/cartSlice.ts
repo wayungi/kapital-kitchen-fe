@@ -1,4 +1,4 @@
-import { /*createAsyncThunk,*/ createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { /*createAsyncThunk,*/ createSlice, /*PayloadAction*/ } from "@reduxjs/toolkit";
 import type { RootState } from "../../app/store";
 import { CartType } from "../../custom";
 
@@ -103,9 +103,15 @@ export const cartSlice = createSlice({
     addItemToCart: (state, action) => {
       state.orderList = [...state.orderList, action.payload]
     },
-    // addMenuItem: (state, action: PayloadAction<MenuItemType>) => {
-    //   state.menuItems = [...state.menuItems, action.payload];
-    // },
+    updateQuantity: (state, action) => {
+      const {alteredQuantity, menuId } = action.payload
+      state.orderList = state.orderList.map((orderItem) => {
+        if(orderItem.menuId === menuId){
+          return {...orderItem, quantity: alteredQuantity}
+        }
+        return orderItem
+      })      
+    },
     // updateMenuItem: (state, action: PayloadAction<MenuItemType>) => {
     //   state.menuItems = [
     //     action.payload,
@@ -134,7 +140,7 @@ export const cartSlice = createSlice({
   
 });
 
-export const { addItemToCart } = cartSlice.actions;
+export const { addItemToCart,  updateQuantity } = cartSlice.actions;
 export const selectCartItems = (state: RootState) => state.cartItems.orderList;
 // export const selectRestaurantMenu = (state: RootState, id: string) => state.menuItems.menuItems.filter((menu) => menu.restaurantId === id);
 // export const selectMenuItem = (state: RootState, menuId: string) => state.menuItems.menuItems.find((menu) => menu._id === menuId)
