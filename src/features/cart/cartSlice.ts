@@ -1,6 +1,8 @@
-import { /*createAsyncThunk,*/ createSlice, /*PayloadAction*/ } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, /*PayloadAction*/ } from "@reduxjs/toolkit";
 import type { RootState } from "../../app/store";
 import { CartType } from "../../custom";
+
+const BASE_URL = ''
 
 export interface CartState {
   orderList: CartType[];
@@ -13,6 +15,17 @@ const initialState: CartState = {
   loading: "idle",
   error: ""
 }
+
+type orderType = {
+  timestamp: number,
+  items: CartType[]
+}
+
+export const saveOrder =  createAsyncThunk("cart/saveOrder", async (order: orderType) => {
+  const res =  await fetch()
+  
+
+})
 
 export const cartSlice = createSlice({
   name: "carItems",
